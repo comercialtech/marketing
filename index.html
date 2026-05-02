@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CommercialTech — Property Task Management System</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green: #7ab32e;
+  --green-light: #96d43a;
+  --green-dark: #5a8a1e;
+  --navy: #1e3a5f;
+  --navy-dark: #0d1f35;
+  --navy-mid: #162d4a;
+  --bg: #080e18;
+  --bg2: #0d1928;
+  --card: #111d2e;
+  --border: #1e3a5f55;
+  --text: #e8f0f8;
+  --muted: #6b8aaa;
+  --white: #ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 40px;height:70px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,14,24,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:all .3s;}
+.nav-logo{display:flex;align-items:center;gap:12px;}
+.nav-logo-circle{width:36px;height:36px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:14px;color:#fff;}
+.nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff;line-height:1.1;}
+.nav-brand span{color:var(--green);display:block;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{color:var(--muted);font-size:13px;text-decoration:none;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:var(--green);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.lang-select{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 10px;border-radius:6px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none;}
+.lang-select:focus{border-color:var(--green);}
+.btn-nav{background:var(--green);color:#fff;padding:8px 20px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-nav:hover{background:var(--green-light);transform:translateY(-1px);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:120px 40px 80px;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%, #1e3a5f33 0%, transparent 70%),radial-gradient(ellipse 40% 40% at 80% 80%, #7ab32e11 0%, transparent 60%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:0.3;}
+.hero-content{text-align:center;max-width:900px;position:relative;z-index:1;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#7ab32e18;border:1px solid #7ab32e44;padding:8px 18px;border-radius:100px;font-size:12px;font-weight:600;color:var(--green);letter-spacing:1px;text-transform:uppercase;margin-bottom:32px;animation:fadeUp .8s ease both;}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.5);}}
+h1{font-family:'Syne',sans-serif;font-size:clamp(40px,7vw,84px);font-weight:800;line-height:1.0;color:#fff;margin-bottom:24px;animation:fadeUp .8s .1s ease both;}
+h1 .accent{color:var(--green);display:block;}
+.hero-sub{font-size:clamp(15px,2vw,19px);color:var(--muted);max-width:600px;margin:0 auto 48px;line-height:1.7;font-weight:300;animation:fadeUp .8s .2s ease both;}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s .3s ease both;}
+.btn-primary{background:var(--green);color:#fff;padding:16px 36px;border-radius:12px;border:none;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;gap:8px;}
+.btn-primary:hover{background:var(--green-light);transform:translateY(-2px);box-shadow:0 12px 40px #7ab32e33;}
+.btn-secondary{background:transparent;color:#fff;padding:16px 36px;border-radius:12px;border:1px solid var(--border);font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-secondary:hover{border-color:var(--green);color:var(--green);}
+.hero-stats{display:flex;gap:48px;justify-content:center;margin-top:72px;animation:fadeUp .8s .4s ease both;}
+.stat{text-align:center;}
+.stat-num{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--green);}
+.stat-label{font-size:12px;color:var(--muted);margin-top:4px;letter-spacing:1px;text-transform:uppercase;}
+
+/* SCROLL INDICATOR */
+.scroll-down{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:11px;letter-spacing:2px;text-transform:uppercase;animation:fadeUp 1s .6s ease both;}
+.scroll-line{width:1px;height:40px;background:linear-gradient(var(--green),transparent);animation:scrollLine 2s infinite;}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+
+/* FEATURES */
+.section{padding:100px 40px;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:16px;}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:16px;}
+.section-sub{font-size:16px;color:var(--muted);max-width:500px;line-height:1.7;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:60px;}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:all .3s;position:relative;overflow:hidden;}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:0;transition:opacity .3s;}
+.feature-card:hover{transform:translateY(-4px);border-color:#7ab32e44;}
+.feature-card:hover::before{opacity:1;}
+.feature-icon{font-size:32px;margin-bottom:16px;}
+.feature-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;}
+.feature-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* DEMO SECTION */
+.demo-section{padding:100px 40px;background:var(--bg2);position:relative;overflow:hidden;}
+.demo-section::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 60% 80% at 100% 50%, #7ab32e0a 0%, transparent 70%);}
+.demo-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1;}
+.demo-features{display:flex;flex-direction:column;gap:20px;margin-top:32px;}
+.demo-feat{display:flex;align-items:flex-start;gap:14px;}
+.demo-feat-icon{width:36px;height:36px;background:#7ab32e18;border:1px solid #7ab32e33;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.demo-feat-text strong{display:block;font-size:14px;font-weight:600;color:#fff;margin-bottom:2px;}
+.demo-feat-text span{font-size:12px;color:var(--muted);}
+.demo-form{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;}
+.demo-form h3{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:6px;}
+.demo-form p{font-size:13px;color:var(--muted);margin-bottom:28px;}
+.form-group{margin-bottom:16px;}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;}
+.form-input{width:100%;padding:12px 16px;background:#0d1928;border:1px solid var(--border);border-radius:10px;color:#fff;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;}
+.form-input:focus{border-color:var(--green);}
+.form-input::placeholder{color:var(--muted);}
+.btn-demo{width:100%;padding:14px;background:var(--green);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;margin-top:8px;}
+.btn-demo:hover{background:var(--green-light);transform:translateY(-1px);}
+.btn-demo:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.trial-note{font-size:11px;color:var(--muted);text-align:center;margin-top:12px;}
+.demo-success{display:none;text-align:center;padding:20px;}
+.demo-success .success-icon{font-size:48px;margin-bottom:12px;}
+.demo-success h4{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--green);margin-bottom:8px;}
+.demo-success p{font-size:13px;color:var(--muted);line-height:1.6;}
+.creds-box{background:#0d1928;border:1px solid var(--green)33;border-radius:10px;padding:16px;margin-top:16px;text-align:left;}
+.creds-box .cred-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.creds-box .cred-row:last-child{border-bottom:none;}
+.creds-box .cred-label{color:var(--muted);}
+.creds-box .cred-val{color:var(--green);font-weight:700;font-family:monospace;}
+
+/* PRICING */
+.pricing-section{padding:100px 40px;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:60px auto 0;}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;position:relative;transition:all .3s;}
+.price-card.featured{border-color:var(--green);background:linear-gradient(160deg,#112a1a,var(--card));}
+.price-card.featured::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:10px;font-weight:800;letter-spacing:2px;padding:4px 16px;border-radius:100px;}
+.plan-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.plan-price{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:#fff;line-height:1;}
+.plan-price span{font-size:16px;font-weight:400;color:var(--muted);}
+.plan-desc{font-size:13px;color:var(--muted);margin:12px 0 28px;line-height:1.6;}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.plan-features li{font-size:13px;color:var(--text);display:flex;align-items:center;gap:10px;}
+.plan-features li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+.plan-features li.no::before{content:'×';color:#475569;}
+.plan-features li.no{color:#475569;}
+.paypal-btn{width:100%;padding:14px;border-radius:10px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.paypal-btn.primary{background:var(--green);color:#fff;}
+.paypal-btn.primary:hover{background:var(--green-light);transform:translateY(-2px);}
+.paypal-btn.outline{background:transparent;color:var(--text);border:1px solid var(--border);}
+.paypal-btn.outline:hover{border-color:var(--green);color:var(--green);}
+.setup-fee{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;}
+
+/* CONTACT */
+.contact-section{padding:100px 40px;background:var(--bg2);}
+.contact-inner{max-width:800px;margin:0 auto;text-align:center;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px;text-align:left;}
+.contact-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;display:flex;align-items:flex-start;gap:14px;}
+.contact-icon{font-size:24px;}
+.contact-info strong{display:block;font-size:14px;font-weight:600;color:#fff;margin-bottom:4px;}
+.contact-info a{font-size:13px;color:var(--green);text-decoration:none;}
+.contact-form{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;margin-top:48px;text-align:left;}
+.contact-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.btn-contact{padding:14px 32px;background:var(--green);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;margin-top:8px;}
+.btn-contact:hover{background:var(--green-light);}
+
+/* FOOTER */
+footer{background:var(--navy-dark);border-top:1px solid var(--border);padding:48px 40px 24px;}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-brand p{font-size:13px;color:var(--muted);margin-top:12px;line-height:1.7;max-width:260px;}
+.footer-col h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:16px;letter-spacing:1px;}
+.footer-col a{display:block;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:8px;transition:color .2s;}
+.footer-col a:hover{color:var(--green);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;}
+.footer-bottom p{font-size:12px;color:var(--muted);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;padding:14px 20px;border-radius:10px;font-size:14px;font-weight:600;z-index:9999;transform:translateY(100px);opacity:0;transition:all .3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.error{background:#dc2626;}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+.fade-up{opacity:0;transform:translateY(24px);transition:all .6s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--card);border:1px solid var(--green)44;border-radius:20px;padding:36px;max-width:500px;width:100%;transform:translateY(20px);transition:transform .3s;}
+.modal-overlay.open .modal{transform:translateY(0);}
+.modal h3{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;}
+.modal p{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.modal-close{float:right;background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;margin-top:-8px;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .hero{padding:100px 20px 60px;}
+  .hero-stats{gap:24px;}
+  .section{padding:60px 20px;}
+  .demo-inner{grid-template-columns:1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .contact-form-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="data:image/png;base64,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" style="height:56px;width:auto;"/>
+    <div class="nav-brand">CommercialTech<span>Global</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#features" data-i18n="nav_features">Features</a>
+    <a href="#demo" data-i18n="nav_demo">Free Trial</a>
+    <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+    <a href="#contact" data-i18n="nav_contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <select class="lang-select" id="langSelect" onchange="setLang(this.value)">
+      <option value="en">🇺🇸 EN</option>
+      <option value="km">🇰🇭 KH</option>
+      <option value="zh">🇨🇳 ZH</option>
+      <option value="ja">🇯🇵 JA</option>
+      <option value="de">🇩🇪 DE</option>
+    </select>
+    <button class="btn-nav" onclick="openDemo()" data-i18n="nav_try">Try Free</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge" data-i18n="hero_badge">🏢 Property Management Platform</div>
+    <h1>
+      <span data-i18n="hero_title1">Manage Your Building</span>
+      <span class="accent" data-i18n="hero_title2">Smarter & Faster</span>
+    </h1>
+    <p class="hero-sub" data-i18n="hero_sub">The complete property task management system for commercial buildings worldwide. Tasks, visitors, payroll, billing — all in one platform.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="openDemo()">
+        🚀 <span data-i18n="hero_cta1">Start 3-Day Free Trial</span>
+      </button>
+      <button class="btn-secondary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">
+        <span data-i18n="hero_cta2">View Pricing</span>
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label" data-i18n="stat1">Buildings</div></div>
+      <div class="stat"><div class="stat-num">500+</div><div class="stat-label" data-i18n="stat2">Daily Tasks</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label" data-i18n="stat3">Languages</div></div>
+      <div class="stat"><div class="stat-num">99.9%</div><div class="stat-label" data-i18n="stat4">Uptime</div></div>
+    </div>
+  </div>
+  <div class="scroll-down">
+    <div class="scroll-line"></div>
+    <span data-i18n="scroll">Scroll</span>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="fade-up">
+      <div class="section-label" data-i18n="feat_label">Everything You Need</div>
+      <div class="section-title" data-i18n="feat_title">One Platform,<br>Complete Control</div>
+      <p class="section-sub" data-i18n="feat_sub">Built specifically for commercial property managers worldwide. Designed for hotels, office towers, serviced apartments, and shopping centers.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📋</div>
+        <div class="feature-title" data-i18n="f1_title">Task Management</div>
+        <div class="feature-desc" data-i18n="f1_desc">Kanban boards, calendar view, task assignments, priority tracking, and real-time status updates for your entire team.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">👥</div>
+        <div class="feature-title" data-i18n="f2_title">Visitor Management</div>
+        <div class="feature-desc" data-i18n="f2_desc">Digital check-in/check-out, visitor cards, ID tracking, and real-time visitor logs with photo capture.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📦</div>
+        <div class="feature-title" data-i18n="f3_title">Inventory Tracking</div>
+        <div class="feature-desc" data-i18n="f3_desc">Stock management, low-stock alerts, transaction history, and supplier tracking for all building supplies.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">💰</div>
+        <div class="feature-title" data-i18n="f4_title">HR & Payroll</div>
+        <div class="feature-desc" data-i18n="f4_desc">Labour Law compliant. 18 days annual leave, 7 sick days, attendance tracking, and automated payroll calculation.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">🏠</div>
+        <div class="feature-title" data-i18n="f5_title">Lease Management</div>
+        <div class="feature-desc" data-i18n="f5_desc">Tenant registry, utility billing with local VAT rules (10% on rental, zero-rated water/electricity), printable invoices.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title" data-i18n="f6_title">Telegram Bot</div>
+        <div class="feature-desc" data-i18n="f6_desc">Tenants submit complaints via Telegram. Managers receive instant alerts. Auto-notify on resolution.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title" data-i18n="f7_title">PDF Reports</div>
+        <div class="feature-desc" data-i18n="f7_desc">Monthly task reports, billing invoices, payroll slips — all professionally formatted and ready to print.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title" data-i18n="f8_title">Mobile App</div>
+        <div class="feature-desc" data-i18n="f8_desc">Available on iOS and Android. Staff can update tasks, upload photos, and manage work from anywhere.</div>
+      </div>
+      <div class="feature-card fade-up">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title" data-i18n="f9_title">Multi-Language</div>
+        <div class="feature-desc" data-i18n="f9_desc">Full support for English, Khmer, Chinese, and Japanese. Perfect for international property teams.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE TRIAL -->
+<section class="demo-section" id="demo">
+  <div class="demo-inner" style="max-width:1100px;margin:0 auto;">
+    <div class="fade-up">
+      <div class="section-label" data-i18n="demo_label">No Credit Card Required</div>
+      <div class="section-title" data-i18n="demo_title">Try CommercialTech<br>Free for 3 Days</div>
+      <p class="section-sub" data-i18n="demo_sub">Get instant access to the full system. Explore every feature with real sample data. No commitment required.</p>
+      <div class="demo-features">
+        <div class="demo-feat">
+          <div class="demo-feat-icon">⚡</div>
+          <div class="demo-feat-text"><strong data-i18n="df1_title">Instant Access</strong><span data-i18n="df1_desc">Your demo account is ready in seconds</span></div>
+        </div>
+        <div class="demo-feat">
+          <div class="demo-feat-icon">🔓</div>
+          <div class="demo-feat-text"><strong data-i18n="df2_title">Full Features</strong><span data-i18n="df2_desc">All features unlocked — nothing hidden</span></div>
+        </div>
+        <div class="demo-feat">
+          <div class="demo-feat-icon">📧</div>
+          <div class="demo-feat-text"><strong data-i18n="df3_title">Credentials by Email</strong><span data-i18n="df3_desc">Login details sent to your inbox instantly</span></div>
+        </div>
+        <div class="demo-feat">
+          <div class="demo-feat-icon">🗑️</div>
+          <div class="demo-feat-text"><strong data-i18n="df4_title">Auto Expires</strong><span data-i18n="df4_desc">Account automatically removed after 3 days</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-up">
+      <div class="demo-form" id="demoFormContainer">
+        <h3 data-i18n="dform_title">Start Your Free Trial</h3>
+        <p data-i18n="dform_sub">Fill in your details and we'll create your demo building instantly.</p>
+        <div class="form-group">
+          <label class="form-label" data-i18n="dform_name">Your Name</label>
+          <input class="form-input" id="trialName" type="text" placeholder="John Doe"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="dform_email">Email Address</label>
+          <input class="form-input" id="trialEmail" type="email" placeholder="you@company.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="dform_building">Building / Company Name</label>
+          <input class="form-input" id="trialBuilding" type="text" placeholder="My Office Tower"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="dform_phone">Phone Number</label>
+          <input class="form-input" id="trialPhone" type="tel" placeholder="+855 12 345 678"/>
+        </div>
+        <button class="btn-demo" id="trialBtn" onclick="startTrial()" data-i18n="dform_btn">🚀 Create My Free Trial</button>
+        <p class="trial-note" data-i18n="dform_note">3-day access • No credit card • Auto-expires</p>
+      </div>
+      <div class="demo-success" id="demoSuccess">
+        <div class="success-icon">🎉</div>
+        <h4 data-i18n="success_title">Your Demo is Ready!</h4>
+        <p data-i18n="success_sub">Check your email for login details. Here's a quick preview:</p>
+        <div class="creds-box" id="credsBox"></div>
+        <a id="demoLink" href="#" target="_blank" style="display:inline-block;margin-top:20px;padding:12px 28px;background:var(--green);color:#fff;border-radius:10px;font-weight:700;text-decoration:none;font-size:14px;" data-i18n="success_btn">Open Demo System →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div style="max-width:1100px;margin:0 auto;text-align:center;">
+    <div class="fade-up">
+      <div class="section-label" data-i18n="price_label">Simple Pricing</div>
+      <div class="section-title" data-i18n="price_title">Choose Your Plan</div>
+      <p class="section-sub" style="margin:0 auto;" data-i18n="price_sub">All plans include setup support, training, and ongoing updates. Cancel anytime.</p>
+    </div>
+    <div class="pricing-grid fade-up">
+
+      <!-- BASIC -->
+      <div class="price-card">
+        <div class="plan-name" data-i18n="p1_name">Basic</div>
+        <div class="plan-price">$800<span data-i18n="per_month">/month</span></div>
+        <p class="plan-desc" data-i18n="p1_desc">Perfect for small buildings starting their digital journey.</p>
+        <ul class="plan-features">
+          <li data-i18n="pf_tasks">Task Management & Kanban</li>
+          <li data-i18n="pf_visitors">Visitor Management</li>
+          <li data-i18n="pf_pdf">PDF Reports</li>
+          <li data-i18n="pf_multi">Multi-Language (EN/KM/ZH/JA)</li>
+          <li data-i18n="pf_mobile">Mobile App Access</li>
+          <li data-i18n="pf_users5">Up to 50 Users</li>
+          <li class="no" data-i18n="pf_payroll">HR & Payroll</li>
+          <li class="no" data-i18n="pf_inventory">Inventory Tracking</li>
+          <li class="no" data-i18n="pf_lease">Lease Management</li>
+        </ul>
+        <button class="paypal-btn outline" onclick="subscribePayPal('basic')" data-i18n="btn_subscribe">Subscribe via PayPal</button>
+        <p class="setup-fee" data-i18n="setup_fee">+ $300 one-time setup fee</p>
+      </div>
+
+      <!-- PRO -->
+      <div class="price-card featured">
+        <div class="plan-name" data-i18n="p2_name">Pro</div>
+        <div class="plan-price">$1,400<span data-i18n="per_month">/month</span></div>
+        <p class="plan-desc" data-i18n="p2_desc">For growing buildings that need full operational control.</p>
+        <ul class="plan-features">
+          <li data-i18n="pf_tasks">Task Management & Kanban</li>
+          <li data-i18n="pf_visitors">Visitor Management</li>
+          <li data-i18n="pf_inventory">Inventory Tracking</li>
+          <li data-i18n="pf_billing">Billing & Invoices</li>
+          <li data-i18n="pf_qr">QR Code Scanning</li>
+          <li data-i18n="pf_whatsapp">WhatsApp Notifications</li>
+          <li data-i18n="pf_pdf">PDF Reports</li>
+          <li data-i18n="pf_users">Up to 100 Users</li>
+          <li class="no" data-i18n="pf_payroll">HR & Payroll</li>
+        </ul>
+        <button class="paypal-btn primary" onclick="subscribePayPal('pro')" data-i18n="btn_subscribe">Subscribe via PayPal</button>
+        <p class="setup-fee" data-i18n="setup_fee">+ $300 one-time setup fee</p>
+      </div>
+
+      <!-- ENTERPRISE -->
+      <div class="price-card">
+        <div class="plan-name" data-i18n="p3_name">Enterprise</div>
+        <div class="plan-price">$3,500<span data-i18n="per_month">/month</span></div>
+        <p class="plan-desc" data-i18n="p3_desc">Full suite for large complexes and property management companies.</p>
+        <ul class="plan-features">
+          <li data-i18n="pf_all">Everything in Pro</li>
+          <li data-i18n="pf_payroll">HR & Payroll (Local Law)</li>
+          <li data-i18n="pf_lease">Lease Management & VAT</li>
+          <li data-i18n="pf_telegram">Telegram Complaint Bot</li>
+          <li data-i18n="pf_unlimited">Unlimited Users</li>
+          <li data-i18n="pf_custom">Custom Branding</li>
+          <li data-i18n="pf_priority">Priority Support</li>
+          <li data-i18n="pf_training">On-site Training</li>
+          <li data-i18n="pf_api">API Access</li>
+        </ul>
+        <button class="paypal-btn outline" onclick="subscribePayPal('enterprise')" data-i18n="btn_subscribe">Subscribe via PayPal</button>
+        <p class="setup-fee" data-i18n="setup_fee">+ $300 one-time setup fee</p>
+      </div>
+    </div>
+    <p class="fade-up" style="margin-top:32px;font-size:13px;color:var(--muted);" data-i18n="price_note">All prices in USD. Monthly billing. Cancel anytime with 30 days notice.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="fade-up">
+      <div class="section-label" data-i18n="contact_label">Get In Touch</div>
+      <div class="section-title" data-i18n="contact_title">Ready to Get Started?</div>
+      <p class="section-sub" style="margin:0 auto;" data-i18n="contact_sub">Contact us for a live demo, custom pricing, or any questions about CommercialTech.</p>
+    </div>
+    <div class="contact-grid fade-up">
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <div class="contact-info">
+          <strong data-i18n="c_location">Location</strong>
+          <a href="#">Phnom Penh, Cambodia 🇰🇭</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📧</div>
+        <div class="contact-info">
+          <strong data-i18n="c_email">Email</strong>
+          <a href="mailto:archieramos008@gmail.com">archieramos008@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">💬</div>
+        <div class="contact-info">
+          <strong data-i18n="c_telegram">Telegram</strong>
+          <a href="https://t.me/commercialtech" target="_blank">@commercialtech</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-info">
+          <strong data-i18n="c_hours">Hours</strong>
+          <a href="#">Mon–Sat, 8AM–6PM (GMT+7)</a>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form fade-up">
+      <div class="contact-form-grid">
+        <div class="form-group">
+          <label class="form-label" data-i18n="cf_name">Your Name</label>
+          <input class="form-input" id="cfName" type="text" placeholder="John Doe"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="cf_email">Email</label>
+          <input class="form-input" id="cfEmail" type="email" placeholder="you@company.com"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="cf_subject">Subject</label>
+        <input class="form-input" id="cfSubject" type="text" placeholder="I'd like to learn more about CommercialTech"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label" data-i18n="cf_message">Message</label>
+        <textarea class="form-input" id="cfMessage" rows="4" placeholder="Tell us about your building..."></textarea>
+      </div>
+      <button class="btn-contact" onclick="sendContact()" data-i18n="cf_send">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <img src="data:image/png;base64,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" style="height:56px;width:auto;"/>
+          <div class="nav-brand">CommercialTech<span>Global</span></div>
+        </div>
+        <p data-i18n="footer_desc">The leading property task management platform for commercial buildings worldwide.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_product">Product</h4>
+        <a href="#features" data-i18n="nav_features">Features</a>
+        <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+        <a href="#demo" data-i18n="nav_demo">Free Trial</a>
+        <a href="https://commercialtech-frontend-production.up.railway.app" target="_blank" data-i18n="footer_login">Login</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_support">Support</h4>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+        <a href="mailto:archieramos008@gmail.com">Email Us</a>
+        <a href="https://t.me/commercialtech" target="_blank">Telegram</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_legal">Legal</h4>
+        <a href="#" data-i18n="footer_privacy">Privacy Policy</a>
+        <a href="#" data-i18n="footer_terms">Terms of Service</a>
+        <a href="#" data-i18n="footer_refund">Refund Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 CommercialTech. <span data-i18n="footer_rights">All rights reserved.</span></p>
+      <p style="font-size:12px;color:var(--muted);">Powered by CommercialTech 🇰🇭</p>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- PAYPAL MODAL -->
+<div class="modal-overlay" id="paypalModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('paypalModal')">×</button>
+    <h3 id="paypalModalTitle">Subscribe — Pro Plan</h3>
+    <p data-i18n="paypal_desc">Click below to set up your monthly subscription via PayPal. You'll be redirected to PayPal to complete payment.</p>
+    <div id="paypalBtnContainer" style="margin-top:16px;"></div>
+    <p style="font-size:11px;color:var(--muted);margin-top:12px;text-align:center;" data-i18n="paypal_note">After payment, email us your PayPal receipt and we'll set up your building within 24 hours.</p>
+  </div>
+</div>
+
+<script>
+// ── TRANSLATIONS ──────────────────────────────────────────────────────────────
+const translations = {
+  en: {
+    nav_features:'Features',nav_demo:'Free Trial',nav_pricing:'Pricing',nav_contact:'Contact',nav_try:'Try Free',
+    hero_badge:'🏢 Property Management Platform',hero_title1:'Manage Your Building',hero_title2:'Smarter & Faster',
+    hero_sub:'The complete property task management system for commercial buildings worldwide. Tasks, visitors, payroll, billing — all in one platform.',
+    hero_cta1:'Start 3-Day Free Trial',hero_cta2:'View Pricing',
+    stat1:'Buildings',stat2:'Daily Tasks',stat3:'Languages',stat4:'Uptime',scroll:'Scroll',
+    feat_label:'Everything You Need',feat_title:'One Platform, Complete Control',
+    feat_sub:'Built specifically for commercial property managers worldwide. Designed for hotels, office towers, serviced apartments, and shopping centers.',
+    f1_title:'Task Management',f1_desc:'Kanban boards, calendar view, task assignments, priority tracking, and real-time status updates.',
+    f2_title:'Visitor Management',f2_desc:'Digital check-in/check-out, visitor cards, ID tracking, and real-time visitor logs.',
+    f3_title:'Inventory Tracking',f3_desc:'Stock management, low-stock alerts, transaction history for all building supplies.',
+    f4_title:'HR & Payroll',f4_desc:'Labour Law compliant. 18 days annual leave, 7 sick days, automated payroll.',
+    f5_title:'Lease Management',f5_desc:'Tenant registry, utility billing with local VAT rules, printable invoices.',
+    f6_title:'Telegram Bot',f6_desc:'Tenants submit complaints via Telegram. Managers receive instant alerts.',
+    f7_title:'PDF Reports',f7_desc:'Monthly reports, billing invoices, payroll slips — professionally formatted.',
+    f8_title:'Mobile App',f8_desc:'Available on iOS and Android. Staff manage work from anywhere.',
+    f9_title:'Multi-Language',f9_desc:'English, Khmer, Chinese, and Japanese support for international teams.',
+    demo_label:'No Credit Card Required',demo_title:'Try CommercialTech Free for 3 Days',
+    demo_sub:'Get instant access to the full system. Explore every feature with real sample data.',
+    df1_title:'Instant Access',df1_desc:'Your demo account is ready in seconds',
+    df2_title:'Full Features',df2_desc:'All features unlocked — nothing hidden',
+    df3_title:'Credentials by Email',df3_desc:'Login details sent to your inbox instantly',
+    df4_title:'Auto Expires',df4_desc:'Account automatically removed after 3 days',
+    dform_title:'Start Your Free Trial',dform_sub:'Fill in your details and we\'ll create your demo building instantly.',
+    dform_name:'Your Name',dform_email:'Email Address',dform_building:'Building / Company Name',dform_phone:'Phone Number',
+    dform_btn:'🚀 Create My Free Trial',dform_note:'3-day access • No credit card • Auto-expires',
+    success_title:'Your Demo is Ready!',success_sub:'Check your email for login details. Here\'s a quick preview:',success_btn:'Open Demo System →',
+    price_label:'Simple Pricing',price_title:'Choose Your Plan',price_sub:'All plans include setup support, training, and updates.',
+    p1_name:'Basic',p1_desc:'Perfect for small buildings starting their digital journey.',
+    p2_name:'Pro',p2_desc:'For growing buildings that need full operational control.',
+    p3_name:'Enterprise',p3_desc:'Full suite for large complexes and property management companies.',
+    per_month:'/month',btn_subscribe:'Subscribe via PayPal',setup_fee:'+ $300 one-time setup fee',
+    pf_tasks:'Task Management & Kanban',pf_visitors:'Visitor Management',pf_pdf:'PDF Reports',
+    pf_multi:'Multi-Language (EN/KM/ZH/JA)',pf_mobile:'Mobile App Access',pf_users5:'Up to 50 Users',
+    pf_payroll:'HR & Payroll (Local Law)',pf_inventory:'Inventory Tracking',pf_lease:'Lease Management & VAT',
+    pf_billing:'Billing & Invoices',pf_qr:'QR Code Scanning',pf_whatsapp:'WhatsApp Notifications',
+    pf_users:'Up to 100 Users',pf_all:'Everything in Pro',pf_telegram:'Telegram Complaint Bot',
+    pf_unlimited:'Unlimited Users',pf_custom:'Custom Branding',pf_priority:'Priority Support',
+    pf_training:'On-site Training',pf_api:'API Access',
+    price_note:'All prices in USD. Monthly billing. Cancel anytime.',
+    contact_label:'Get In Touch',contact_title:'Ready to Get Started?',
+    contact_sub:'Contact us for a live demo, custom pricing, or any questions.',
+    c_location:'Location',c_email:'Email',c_telegram:'Telegram',c_hours:'Business Hours',
+    cf_name:'Your Name',cf_email:'Email',cf_subject:'Subject',cf_message:'Message',cf_send:'Send Message →',
+    footer_desc:'The leading property task management platform for commercial buildings worldwide.',
+    footer_product:'Product',footer_support:'Support',footer_legal:'Legal',footer_login:'Login to App',
+    footer_privacy:'Privacy Policy',footer_terms:'Terms of Service',footer_refund:'Refund Policy',footer_rights:'All rights reserved.',
+    paypal_desc:'Click below to set up your monthly subscription via PayPal.',
+    paypal_note:'After payment, email us your PayPal receipt and we\'ll set up your building within 24 hours.',
+  },
+  km: {
+    nav_features:'មុខងារ',nav_demo:'សាកល្បងឥតគិតថ្លៃ',nav_pricing:'តម្លៃ',nav_contact:'ទំនាក់ទំនង',nav_try:'សាកល្បង',
+    hero_badge:'🏢 ប្រព័ន្ធគ្រប់គ្រងអចលនទ្រព្យ',hero_title1:'គ្រប់គ្រងអាគារ',hero_title2:'ឆ្លាតវៃ និងលឿន',
+    hero_sub:'ប្រព័ន្ធគ្រប់គ្រងភារកិច្ចអចលនទ្រព្យពេញលេញសម្រាប់អគារពាណិជ្ជកម្មទូទាំងពិភពលោក។',
+    hero_cta1:'ចាប់ផ្តើមសាកល្បង 3 ថ្ងៃ',hero_cta2:'មើលតម្លៃ',
+    stat1:'អគារ',stat2:'ភារកិច្ចប្រចាំថ្ងៃ',stat3:'ភាសា',stat4:'ពេលប្រើការ',scroll:'រំកិល',
+    feat_label:'អ្វីគ្រប់យ៉ាងដែលអ្នកត្រូវការ',feat_title:'វេទិកាតែមួយ ការគ្រប់គ្រងពេញលេញ',
+    feat_sub:'បង្កើតឡើងជាពិសេសសម្រាប់អ្នកគ្រប់គ្រងអចលនទ្រព្យពាណិជ្ជកម្មនៅកម្ពុជា។',
+    f1_title:'គ្រប់គ្រងភារកិច្ច',f1_desc:'ក្តារ Kanban ប្រតិទិន ការចាត់តាំង និងការតាមដានស្ថានភាព។',
+    f2_title:'គ្រប់គ្រងអ្នកទស្សនា',f2_desc:'ចូល/ចេញឌីជីថល កាតអ្នកទស្សនា ការតាមដានអត្តសញ្ញាណប័ណ្ណ។',
+    f3_title:'តាមដានសារពើភ័ណ្ឌ',f3_desc:'គ្រប់គ្រងស្តុក ការជូនដំណឹងស្តុកទាប ប្រវត្តិប្រតិបត្តិការ។',
+    f4_title:'HR និងប្រាក់ខែ',f4_desc:'អនុលោមតាមច្បាប់ការងារកម្ពុជា។ 휴 18 ថ្ងៃប្រចាំឆ្នាំ 7 ថ្ងៃឈឺ។',
+    f5_title:'គ្រប់គ្រងការជួល',f5_desc:'ការចុះឈ្មោះអ្នកជួល វិក្កយបត្រប្រើប្រាស់ ជាមួយច្បាប់ VAT កម្ពុជា។',
+    f6_title:'Bot Telegram',f6_desc:'អ្នកជួលដាក់ពាក្យតវ៉ាតាម Telegram ។ អ្នកគ្រប់គ្រងទទួលការជូនដំណឹងភ្លាមៗ។',
+    f7_title:'របាយការណ៍ PDF',f7_desc:'របាយការណ៍ប្រចាំខែ វិក្កយបត្រ ប្រាក់ខែ — ទ្រង់ទ្រាយអាជីព។',
+    f8_title:'កម្មវិធីទូរស័ព្ទ',f8_desc:'មាននៅ iOS និង Android ។ បុគ្គលិកគ្រប់គ្រងការងារពីគ្រប់ទីកន្លែង។',
+    f9_title:'ពហុភាសា',f9_desc:'ជំនួយភាសាអង់គ្លេស ខ្មែរ ចិន និងជប៉ុនសម្រាប់ក្រុមអន្តរជាតិ។',
+    demo_label:'មិនត្រូវការកាតឥណទាន',demo_title:'សាកល្បង CommercialTech ដោយឥតគិតថ្លៃ 3 ថ្ងៃ',
+    demo_sub:'ទទួលការចូលប្រើប្រព័ន្ធពេញលេញ។ ស្វែងយល់មុខងារទាំងអស់ជាមួយទិន្នន័យគំរូ។',
+    df1_title:'ចូលប្រើភ្លាមៗ',df1_desc:'គណនីសាកល្បងរបស់អ្នករៀបចំក្នុងរយៈពេលប៉ុន្មានវិនាទី',
+    df2_title:'មុខងារពេញលេញ',df2_desc:'មុខងារទាំងអស់បើក — គ្មានអ្វីលាក់',
+    df3_title:'ព័ត៌មានតាមអ៊ីមែល',df3_desc:'ព័ត៌មានចូលប្រព័ន្ធផ្ញើទៅប្រអប់អ៊ីមែលរបស់អ្នកភ្លាមៗ',
+    df4_title:'ផុតកំណត់ដោយស្វ័យប្រវត្តិ',df4_desc:'គណនីត្រូវបានលុបដោយស្វ័យប្រវត្តិបន្ទាប់ពី 3 ថ្ងៃ',
+    dform_title:'ចាប់ផ្តើមការសាកល្បងដោយឥតគិតថ្លៃ',dform_sub:'បំពេញព័ត៌មានលម្អិតរបស់អ្នក ហើយយើងនឹងបង្កើតអាគារសាកល្បងរបស់អ្នកភ្លាមៗ។',
+    dform_name:'ឈ្មោះរបស់អ្នក',dform_email:'អាសយដ្ឋានអ៊ីមែល',dform_building:'ឈ្មោះអាគារ / ក្រុមហ៊ុន',dform_phone:'លេខទូរស័ព្ទ',
+    dform_btn:'🚀 បង្កើតការសាកល្បងឥតគិតថ្លៃ',dform_note:'ការចូលប្រើ 3 ថ្ងៃ • មិនត្រូវការកាតឥណទាន • ផុតកំណត់ដោយស្វ័យប្រវត្តិ',
+    success_title:'ការសាកល្បងរបស់អ្នករួចរាល់!',success_sub:'ពិនិត្យអ៊ីមែលរបស់អ្នកសម្រាប់ព័ត៌មានចូលប្រព័ន្ធ។',success_btn:'បើកប្រព័ន្ធសាកល្បង →',
+    price_label:'តម្លៃសាមញ្ញ',price_title:'ជ្រើសរើសផែនការរបស់អ្នក',price_sub:'ផែនការទាំងអស់រួមបញ្ចូលការគាំទ្រការដំឡើង ការបណ្តុះបណ្តាល និងការអាប់ដេត។',
+    p1_name:'មូលដ្ឋាន',p1_desc:'ល្អឥតខ្ចោះសម្រាប់អគារតូចដែលចាប់ផ្តើមដំណើរការឌីជីថល។',
+    p2_name:'គ្រប់គ្រាន់',p2_desc:'សម្រាប់អគារកំពុងរីកចម្រើនដែលត្រូវការការគ្រប់គ្រងប្រតិបត្តិការពេញលេញ។',
+    p3_name:'សហគ្រាស',p3_desc:'ប្រព័ន្ធពេញលេញសម្រាប់ស្មុគស្មាញធំ និងក្រុមហ៊ុនគ្រប់គ្រងអចលនទ្រព្យ។',
+    per_month:'/ខែ',btn_subscribe:'ជាវតាម PayPal',setup_fee:'+ $300 ថ្លៃដំឡើងតែម្តង',
+    pf_tasks:'គ្រប់គ្រងភារកិច្ច និង Kanban',pf_visitors:'គ្រប់គ្រងអ្នកទស្សនា',pf_pdf:'របាយការណ៍ PDF',
+    pf_multi:'ពហុភាសា (EN/KM/ZH/JA)',pf_mobile:'ចូលប្រើកម្មវិធីទូរស័ព្ទ',pf_users5:'រហូតដល់ 50 អ្នកប្រើប្រាស់',
+    pf_payroll:'HR និងប្រាក់ខែ',pf_inventory:'តាមដានសារពើភ័ណ្ឌ',pf_lease:'គ្រប់គ្រងការជួល និង VAT',
+    pf_billing:'វិក្កយបត្រ',pf_qr:'ស្កែន QR Code',pf_whatsapp:'ការជូនដំណឹង WhatsApp',
+    pf_users:'រហូតដល់ 100 អ្នកប្រើប្រាស់',pf_all:'អ្វីគ្រប់យ៉ាងក្នុង Pro',pf_telegram:'Bot ពាក្យតវ៉ា Telegram',
+    pf_unlimited:'អ្នកប្រើប្រាស់គ្មានកំណត់',pf_custom:'ម៉ាកផ្ទាល់ខ្លួន',pf_priority:'ការគាំទ្រអាទិភាព',
+    pf_training:'ការបណ្តុះបណ្តាលនៅទីតាំង',pf_api:'ការចូលប្រើ API',
+    price_note:'តម្លៃទាំងអស់ជា USD ។ វិក្កយបត្រប្រចាំខែ។ អាចលុបចោលគ្រប់ពេល។',
+    contact_label:'ទំនាក់ទំនង',contact_title:'ត្រៀមខ្លួនចាប់ផ្តើមហើយឬ?',
+    contact_sub:'ទំនាក់ទំនងយើងសម្រាប់ការបង្ហាញផ្ទាល់ ឬសំណួរណាមួយ។',
+    c_location:'ទីតាំង',c_email:'អ៊ីមែល',c_telegram:'Telegram',c_hours:'ម៉ោងធ្វើការ',
+    cf_name:'ឈ្មោះ',cf_email:'អ៊ីមែល',cf_subject:'ប្រធានបទ',cf_message:'សារ',cf_send:'ផ្ញើសារ →',
+    footer_desc:'វេទិកាគ្រប់គ្រងភារកិច្ចអចលនទ្រព្យឈានមុខសម្រាប់អគារពាណិជ្ជកម្មនៅកម្ពុជា។',
+    footer_product:'ផលិតផល',footer_support:'ជំនួយ',footer_legal:'ច្បាប់',footer_login:'ចូលប្រព័ន្ធ',
+    footer_privacy:'គោលការណ៍ភាពឯកជន',footer_terms:'លក្ខខណ្ឌសេវា',footer_refund:'គោលការណ៍សងប្រាក់',footer_rights:'រក្សាសិទ្ធិទាំងអស់។',
+    paypal_desc:'ចុចខាងក្រោមដើម្បីដំឡើងការជាវប្រចាំខែតាម PayPal ។',
+    paypal_note:'បន្ទាប់ពីបង់ប្រាក់ ផ្ញើបង្កាន់ដៃ PayPal មកយើង ហើយយើងនឹងដំឡើងអាគាររបស់អ្នកក្នុង 24 ម៉ោង។',
+  },
+  zh: {
+    nav_features:'功能',nav_demo:'免费试用',nav_pricing:'价格',nav_contact:'联系我们',nav_try:'免费试用',
+    hero_badge:'🏢 物业管理平台',hero_title1:'智能管理您的大楼',hero_title2:'更快、更高效',
+    hero_sub:'专为全球商业建筑设计的完整物业任务管理系统。任务、访客、薪资、账单——一个平台全搞定。',
+    hero_cta1:'开始3天免费试用',hero_cta2:'查看价格',
+    stat1:'建筑物',stat2:'日常任务',stat3:'语言',stat4:'正常运行时间',scroll:'滚动',
+    feat_label:'您所需的一切',feat_title:'一个平台，完全掌控',feat_sub:'专为柬埔寨商业物业经理打造。',
+    f1_title:'任务管理',f1_desc:'看板、日历视图、任务分配、优先级跟踪和实时状态更新。',
+    f2_title:'访客管理',f2_desc:'数字签到/签出、访客卡、身份证跟踪和实时访客日志。',
+    f3_title:'库存跟踪',f3_desc:'库存管理、低库存警报、所有建筑用品的交易历史。',
+    f4_title:'HR和薪资',f4_desc:'符合当地劳动法。18天年假，7天病假，自动薪资计算。',
+    f5_title:'租赁管理',f5_desc:'租户登记、符合当地增值税规则的水电费账单、可打印发票。',
+    f6_title:'Telegram机器人',f6_desc:'租户通过Telegram提交投诉。管理者即时收到通知。',
+    f7_title:'PDF报告',f7_desc:'月度报告、账单发票、工资单——专业格式。',
+    f8_title:'移动应用',f8_desc:'适用于iOS和Android。员工随时随地管理工作。',
+    f9_title:'多语言',f9_desc:'支持英语、高棉语、中文和日语。',
+    demo_label:'无需信用卡',demo_title:'免费试用CommercialTech 3天',demo_sub:'立即访问完整系统。使用真实示例数据探索每项功能。',
+    df1_title:'即时访问',df1_desc:'您的演示账户几秒内准备就绪',df2_title:'完整功能',df2_desc:'所有功能解锁——无隐藏',
+    df3_title:'邮件发送凭证',df3_desc:'登录详情即时发送到您的收件箱',df4_title:'自动过期',df4_desc:'3天后账户自动删除',
+    dform_title:'开始免费试用',dform_sub:'填写您的详细信息，我们将立即创建您的演示建筑。',
+    dform_name:'您的姓名',dform_email:'电子邮件地址',dform_building:'建筑/公司名称',dform_phone:'电话号码',
+    dform_btn:'🚀 创建我的免费试用',dform_note:'3天访问 • 无需信用卡 • 自动过期',
+    success_title:'您的演示已准备就绪！',success_sub:'查看您的电子邮件以获取登录详情。',success_btn:'打开演示系统 →',
+    price_label:'简单定价',price_title:'选择您的方案',price_sub:'所有方案包含设置支持、培训和更新。',
+    p1_name:'基础版',p1_desc:'适合刚开始数字化旅程的小型建筑。',
+    p2_name:'专业版',p2_desc:'适合需要完整运营控制的成长型建筑。',
+    p3_name:'企业版',p3_desc:'适合大型综合体和物业管理公司的完整套件。',
+    per_month:'/月',btn_subscribe:'通过PayPal订阅',setup_fee:'+ $300一次性设置费',
+    pf_tasks:'任务管理和看板',pf_visitors:'访客管理',pf_pdf:'PDF报告',pf_multi:'多语言(EN/KM/ZH/JA)',
+    pf_mobile:'移动应用访问',pf_users5:'最多50个用户',pf_payroll:'HR和薪资',pf_inventory:'库存跟踪',
+    pf_lease:'租赁管理和增值税',pf_billing:'账单和发票',pf_qr:'二维码扫描',pf_whatsapp:'WhatsApp通知',
+    pf_users:'最多100个用户',pf_all:'Pro版所有功能',pf_telegram:'Telegram投诉机器人',
+    pf_unlimited:'无限用户',pf_custom:'自定义品牌',pf_priority:'优先支持',pf_training:'现场培训',pf_api:'API访问',
+    price_note:'所有价格以美元计。按月计费。随时取消。',
+    contact_label:'联系我们',contact_title:'准备好开始了吗？',contact_sub:'联系我们进行现场演示或咨询任何问题。',
+    c_location:'地址',c_email:'电子邮件',c_telegram:'Telegram',c_hours:'营业时间',
+    cf_name:'您的姓名',cf_email:'电子邮件',cf_subject:'主题',cf_message:'留言',cf_send:'发送消息 →',
+    footer_desc:'柬埔寨商业建筑领先的物业任务管理平台。',
+    footer_product:'产品',footer_support:'支持',footer_legal:'法律',footer_login:'登录应用',
+    footer_privacy:'隐私政策',footer_terms:'服务条款',footer_refund:'退款政策',footer_rights:'版权所有。',
+    paypal_desc:'点击下方通过PayPal设置您的每月订阅。',paypal_note:'付款后，将PayPal收据发送给我们，我们将在24小时内为您设置建筑。',
+  },
+  ja: {
+    nav_features:'機能',nav_demo:'無料トライアル',nav_pricing:'料金',nav_contact:'お問い合わせ',nav_try:'無料で試す',
+    hero_badge:'🏢 物件管理プラットフォーム',hero_title1:'ビルをスマートに管理',hero_title2:'より速く、より賢く',
+    hero_sub:'世界中の商業ビル向け完全物件タスク管理システム。タスク、訪問者、給与、請求書—すべて一つのプラットフォームで。',
+    hero_cta1:'3日間無料トライアル開始',hero_cta2:'料金を見る',
+    stat1:'建物',stat2:'日常タスク',stat3:'言語',stat4:'稼働時間',scroll:'スクロール',
+    feat_label:'必要なすべてが揃う',feat_title:'一つのプラットフォームで完全制御',feat_sub:'カンボジアの商業物件管理者のために特別に構築されました。',
+    f1_title:'タスク管理',f1_desc:'カンバンボード、カレンダービュー、タスク割り当て、優先度追跡。',
+    f2_title:'訪問者管理',f2_desc:'デジタルチェックイン/アウト、訪問者カード、ID追跡。',
+    f3_title:'在庫追跡',f3_desc:'在庫管理、低在庫アラート、取引履歴。',
+    f4_title:'HRと給与',f4_desc:'地域の労働法準拠。年次有給18日、病気休暇7日。',
+    f5_title:'リース管理',f5_desc:'テナント登録、現地VATルールによる光熱費請求。',
+    f6_title:'Telegramボット',f6_desc:'テナントがTelegramで苦情を提出。管理者が即座に通知を受け取る。',
+    f7_title:'PDFレポート',f7_desc:'月次レポート、請求書、給与明細—プロフェッショナルフォーマット。',
+    f8_title:'モバイルアプリ',f8_desc:'iOSとAndroidで利用可能。スタッフがどこからでも作業を管理。',
+    f9_title:'多言語対応',f9_desc:'英語、クメール語、中国語、日本語のサポート。',
+    demo_label:'クレジットカード不要',demo_title:'CommercialTechを3日間無料でお試し',demo_sub:'完全なシステムへの即時アクセス。実際のサンプルデータですべての機能を探索。',
+    df1_title:'即時アクセス',df1_desc:'デモアカウントが数秒で準備完了',df2_title:'全機能',df2_desc:'すべての機能がロック解除—隠しなし',
+    df3_title:'メールで認証情報',df3_desc:'ログイン詳細が即座に受信トレイに送信',df4_title:'自動期限切れ',df4_desc:'3日後にアカウントが自動的に削除',
+    dform_title:'無料トライアルを開始',dform_sub:'詳細を入力すると、すぐにデモビルを作成します。',
+    dform_name:'お名前',dform_email:'メールアドレス',dform_building:'建物/会社名',dform_phone:'電話番号',
+    dform_btn:'🚀 無料トライアルを作成',dform_note:'3日間アクセス • クレジットカード不要 • 自動期限切れ',
+    success_title:'デモの準備ができました！',success_sub:'ログイン詳細についてメールを確認してください。',success_btn:'デモシステムを開く →',
+    price_label:'シンプルな料金',price_title:'プランを選択',price_sub:'すべてのプランにセットアップサポート、トレーニング、更新が含まれます。',
+    p1_name:'ベーシック',p1_desc:'デジタル化を始める小規模ビルに最適。',
+    p2_name:'プロ',p2_desc:'完全な運営管理が必要な成長中のビル向け。',
+    p3_name:'エンタープライズ',p3_desc:'大規模複合施設と不動産管理会社向けフルスイート。',
+    per_month:'/月',btn_subscribe:'PayPalで購読',setup_fee:'+ $300 初回セットアップ料金',
+    pf_tasks:'タスク管理とカンバン',pf_visitors:'訪問者管理',pf_pdf:'PDFレポート',pf_multi:'多言語(EN/KM/ZH/JA)',
+    pf_mobile:'モバイルアプリアクセス',pf_users5:'最大50ユーザー',pf_payroll:'HRと給与',pf_inventory:'在庫追跡',
+    pf_lease:'リース管理とVAT',pf_billing:'請求と請求書',pf_qr:'QRコードスキャン',pf_whatsapp:'WhatsApp通知',
+    pf_users:'最大100ユーザー',pf_all:'Proのすべて',pf_telegram:'Telegram苦情ボット',
+    pf_unlimited:'無制限ユーザー',pf_custom:'カスタムブランディング',pf_priority:'優先サポート',pf_training:'現地トレーニング',pf_api:'APIアクセス',
+    price_note:'すべての価格はUSD。月次請求。いつでもキャンセル可能。',
+    contact_label:'お問い合わせ',contact_title:'始める準備はできていますか？',contact_sub:'ライブデモや価格についてお問い合わせください。',
+    c_location:'場所',c_email:'メール',c_telegram:'Telegram',c_hours:'営業時間',
+    cf_name:'お名前',cf_email:'メール',cf_subject:'件名',cf_message:'メッセージ',cf_send:'メッセージを送る →',
+    footer_desc:'カンボジアの商業ビル向けトップ物件タスク管理プラットフォーム。',
+    footer_product:'製品',footer_support:'サポート',footer_legal:'法律',footer_login:'アプリにログイン',
+    footer_privacy:'プライバシーポリシー',footer_terms:'利用規約',footer_refund:'返金ポリシー',footer_rights:'全著作権所有。',
+    paypal_desc:'下のボタンをクリックしてPayPalで月次サブスクリプションを設定してください。',paypal_note:'支払い後、PayPalの領収書をメールで送ってください。24時間以内にビルを設定します。',
+  },
+  de: {
+    nav_features:'Funktionen',nav_demo:'Kostenlos testen',nav_pricing:'Preise',nav_contact:'Kontakt',nav_try:'Kostenlos testen',
+    hero_badge:'🏢 Immobilienverwaltungsplattform',hero_title1:'Verwalten Sie Ihr Gebäude',hero_title2:'Smarter & Schneller',
+    hero_sub:'Das komplette Immobilien-Aufgabenverwaltungssystem für Gewerbegebäude weltweit. Aufgaben, Besucher, Gehaltsabrechnung, Rechnungen — alles in einer Plattform.',
+    hero_cta1:'3-Tage-Testversion starten',hero_cta2:'Preise ansehen',
+    stat1:'Gebäude',stat2:'Tägliche Aufgaben',stat3:'Sprachen',stat4:'Betriebszeit',scroll:'Scrollen',
+    feat_label:'Alles was Sie brauchen',feat_title:'Eine Plattform, vollständige Kontrolle',feat_sub:'Speziell für gewerbliche Immobilienverwalter in Kambodscha entwickelt.',
+    f1_title:'Aufgabenverwaltung',f1_desc:'Kanban-Boards, Kalenderansicht, Aufgabenzuweisungen und Echtzeit-Statusaktualisierungen.',
+    f2_title:'Besucherverwaltung',f2_desc:'Digitales Ein-/Auschecken, Besucherkarten, ID-Verfolgung.',
+    f3_title:'Inventarverfolgung',f3_desc:'Lagerverwaltung, Niedrigbestandsalarme, Transaktionshistorie.',
+    f4_title:'HR & Gehaltsabrechnung',f4_desc:'Lokales Arbeitsrecht konform. 18 Urlaubstage, 7 Krankheitstage.',
+    f5_title:'Mietverwaltung',f5_desc:'Mieterregister, Nebenkostenabrechnung mit lokalen MwSt-Regeln.',
+    f6_title:'Telegram-Bot',f6_desc:'Mieter reichen Beschwerden über Telegram ein. Manager erhalten sofortige Benachrichtigungen.',
+    f7_title:'PDF-Berichte',f7_desc:'Monatsberichte, Rechnungen, Gehaltsabrechnungen — professionell formatiert.',
+    f8_title:'Mobile App',f8_desc:'Verfügbar für iOS und Android. Mitarbeiter verwalten die Arbeit von überall.',
+    f9_title:'Mehrsprachig',f9_desc:'Unterstützung für Englisch, Khmer, Chinesisch und Japanisch.',
+    demo_label:'Keine Kreditkarte erforderlich',demo_title:'CommercialTech 3 Tage kostenlos testen',demo_sub:'Sofortiger Zugriff auf das vollständige System. Alle Funktionen mit echten Beispieldaten erkunden.',
+    df1_title:'Sofortiger Zugriff',df1_desc:'Ihr Demo-Konto ist in Sekunden bereit',df2_title:'Alle Funktionen',df2_desc:'Alle Funktionen freigeschaltet — nichts versteckt',
+    df3_title:'Anmeldedaten per E-Mail',df3_desc:'Login-Details sofort in Ihren Posteingang gesendet',df4_title:'Automatisch ablaufen',df4_desc:'Konto wird nach 3 Tagen automatisch gelöscht',
+    dform_title:'Kostenlose Testversion starten',dform_sub:'Füllen Sie Ihre Daten aus und wir erstellen Ihr Demo-Gebäude sofort.',
+    dform_name:'Ihr Name',dform_email:'E-Mail-Adresse',dform_building:'Gebäude / Firmenname',dform_phone:'Telefonnummer',
+    dform_btn:'🚀 Meine kostenlose Testversion erstellen',dform_note:'3-Tage-Zugriff • Keine Kreditkarte • Automatisch ablaufen',
+    success_title:'Ihr Demo ist bereit!',success_sub:'Überprüfen Sie Ihre E-Mail für Anmeldedaten.',success_btn:'Demo-System öffnen →',
+    price_label:'Einfache Preisgestaltung',price_title:'Wählen Sie Ihren Plan',price_sub:'Alle Pläne beinhalten Setup-Support, Schulung und Updates.',
+    p1_name:'Basis',p1_desc:'Perfekt für kleine Gebäude, die ihre digitale Reise beginnen.',
+    p2_name:'Pro',p2_desc:'Für wachsende Gebäude, die vollständige betriebliche Kontrolle benötigen.',
+    p3_name:'Enterprise',p3_desc:'Vollständige Suite für große Komplexe und Immobilienverwaltungsunternehmen.',
+    per_month:'/Monat',btn_subscribe:'Über PayPal abonnieren',setup_fee:'+ $300 einmalige Einrichtungsgebühr',
+    pf_tasks:'Aufgabenverwaltung & Kanban',pf_visitors:'Besucherverwaltung',pf_pdf:'PDF-Berichte',pf_multi:'Mehrsprachig (EN/KM/ZH/JA)',
+    pf_mobile:'Mobile App Zugriff',pf_users5:'Bis zu 50 Benutzer',pf_payroll:'HR & Gehaltsabrechnung',pf_inventory:'Inventarverfolgung',
+    pf_lease:'Mietverwaltung & MwSt',pf_billing:'Abrechnung & Rechnungen',pf_qr:'QR-Code-Scannen',pf_whatsapp:'WhatsApp-Benachrichtigungen',
+    pf_users:'Bis zu 100 Benutzer',pf_all:'Alles in Pro',pf_telegram:'Telegram-Beschwerde-Bot',
+    pf_unlimited:'Unbegrenzte Benutzer',pf_custom:'Individuelles Branding',pf_priority:'Prioritätssupport',pf_training:'Vor-Ort-Schulung',pf_api:'API-Zugriff',
+    price_note:'Alle Preise in USD. Monatliche Abrechnung. Jederzeit kündbar.',
+    contact_label:'Kontakt aufnehmen',contact_title:'Bereit anzufangen?',contact_sub:'Kontaktieren Sie uns für eine Live-Demo oder bei Fragen.',
+    c_location:'Standort',c_email:'E-Mail',c_telegram:'Telegram',c_hours:'Öffnungszeiten',
+    cf_name:'Ihr Name',cf_email:'E-Mail',cf_subject:'Betreff',cf_message:'Nachricht',cf_send:'Nachricht senden →',
+    footer_desc:'Die führende Immobilien-Aufgabenverwaltungsplattform für Gewerbegebäude in Kambodscha.',
+    footer_product:'Produkt',footer_support:'Support',footer_legal:'Rechtliches',footer_login:'App anmelden',
+    footer_privacy:'Datenschutzrichtlinie',footer_terms:'Nutzungsbedingungen',footer_refund:'Rückerstattungsrichtlinie',footer_rights:'Alle Rechte vorbehalten.',
+    paypal_desc:'Klicken Sie unten, um Ihr monatliches Abonnement über PayPal einzurichten.',paypal_note:'Nach der Zahlung senden Sie uns Ihre PayPal-Quittung und wir richten Ihr Gebäude innerhalb von 24 Stunden ein.',
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = translations[lang] || translations.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) el.textContent = t[key];
+  });
+}
+
+// ── SCROLL ANIMATIONS ─────────────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── TRIAL FORM ────────────────────────────────────────────────────────────────
+async function startTrial() {
+  const name = document.getElementById('trialName').value.trim();
+  const email = document.getElementById('trialEmail').value.trim();
+  const building = document.getElementById('trialBuilding').value.trim();
+  const phone = document.getElementById('trialPhone').value.trim();
+
+  if (!name || !email || !building) return showToast('Please fill in all required fields!', true);
+
+  const btn = document.getElementById('trialBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Creating your demo...';
+
+  try {
+    const slug = 'trial-' + building.toLowerCase().replace(/[^a-z0-9]/g,'-').slice(0,15) + '-' + Date.now().toString().slice(-4);
+    const password = 'Demo@' + Math.random().toString(36).slice(-6).toUpperCase();
+
+    const res = await fetch('https://commercialtech-backend-production.up.railway.app/api/auth/register-tenant', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tenantName: building,
+        slug,
+        adminName: name,
+        adminEmail: email,
+        adminPassword: password,
+        plan: 'pro',
+        trial: true,
+        trialDays: 3,
+        phone
+      })
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed to create trial');
+
+    // Show success
+    document.getElementById('demoFormContainer').style.display = 'none';
+    const success = document.getElementById('demoSuccess');
+    success.style.display = 'block';
+
+    const appUrl = `https://commercialtech-frontend-production.up.railway.app/login`;
+    document.getElementById('demoLink').href = appUrl;
+
+    document.getElementById('credsBox').innerHTML = `
+      <div class="cred-row"><span class="cred-label">🌐 Login URL</span><span class="cred-val" style="font-size:10px">${appUrl}</span></div>
+      <div class="cred-row"><span class="cred-label">🏢 Building Slug</span><span class="cred-val">${slug}</span></div>
+      <div class="cred-row"><span class="cred-label">📧 Email</span><span class="cred-val">${email}</span></div>
+      <div class="cred-row"><span class="cred-label">🔑 Password</span><span class="cred-val">${password}</span></div>
+      <div class="cred-row"><span class="cred-label">⏰ Expires</span><span class="cred-val">3 days</span></div>
+    `;
+
+    showToast('🎉 Demo created successfully!');
+  } catch(e) {
+    showToast('❌ ' + (e.message || 'Failed to create trial'), true);
+    btn.disabled = false;
+    btn.textContent = '🚀 Create My Free Trial';
+  }
+}
+
+// ── PAYPAL ────────────────────────────────────────────────────────────────────
+const paypalLinks = {
+  basic: 'https://www.paypal.com/cgi-bin/webscr?cmd=_xclick-subscriptions&business=archieramos008@gmail.com&item_name=CommercialTech+Basic+Plan&a3=800&p3=1&t3=M&src=1&sra=1&no_note=1&currency_code=USD',
+  pro: 'https://www.paypal.com/cgi-bin/webscr?cmd=_xclick-subscriptions&business=archieramos008@gmail.com&item_name=CommercialTech+Pro+Plan&a3=1400&p3=1&t3=M&src=1&sra=1&no_note=1&currency_code=USD',
+  enterprise: 'https://www.paypal.com/cgi-bin/webscr?cmd=_xclick-subscriptions&business=archieramos008@gmail.com&item_name=CommercialTech+Enterprise+Plan&a3=3500&p3=1&t3=M&src=1&sra=1&no_note=1&currency_code=USD',
+};
+
+function subscribePayPal(plan) {
+  const names = { basic:'Basic — $800/month', pro:'Pro — $1,400/month', enterprise:'Enterprise — $3,500/month' };
+  document.getElementById('paypalModalTitle').textContent = 'Subscribe: ' + names[plan];
+  const container = document.getElementById('paypalBtnContainer');
+  container.innerHTML = `
+    <a href="${paypalLinks[plan]}" target="_blank"
+      style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;background:#0070ba;color:#fff;border-radius:10px;font-weight:800;font-size:16px;text-decoration:none;font-family:DM Sans,sans-serif;transition:background .2s;"
+      onmouseover="this.style.background='#005ea6'" onmouseout="this.style.background='#0070ba'">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.313 2.948.894 5.195-.008.044-.015.088-.023.132-.625 3.157-2.687 4.81-6.048 4.81h-1.53a.882.882 0 0 0-.87.745l-.893 5.66-.13.834-.001.003Z"/></svg>
+      Pay with PayPal
+    </a>
+    <p style="font-size:12px;color:#6b8aaa;margin-top:10px;text-align:center;">You'll be redirected to PayPal to complete your subscription</p>
+  `;
+  openModal('paypalModal');
+}
+
+// ── CONTACT FORM ──────────────────────────────────────────────────────────────
+function sendContact() {
+  const name = document.getElementById('cfName').value.trim();
+  const email = document.getElementById('cfEmail').value.trim();
+  const subject = document.getElementById('cfSubject').value.trim();
+  const message = document.getElementById('cfMessage').value.trim();
+  if (!name || !email || !message) return showToast('Please fill in all fields!', true);
+  const mailto = `mailto:archieramos008@gmail.com?subject=${encodeURIComponent('CommercialTech Inquiry: ' + subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+  window.open(mailto);
+  showToast('Opening email client...');
+}
+
+// ── DEMO BUTTON IN NAV ────────────────────────────────────────────────────────
+function openDemo() {
+  document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if(e.target === m) m.classList.remove('open'); });
+});
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+function showToast(msg, error=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (error ? ' error' : '') + ' show';
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+</script>
+</body>
+</html>
