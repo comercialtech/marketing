@@ -183,6 +183,7 @@ h2.st{
 .fc-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 9px;border-radius:4px;margin-top:14px;}
 .ft-g{background:rgba(122,179,46,0.12);color:#5e8f1c;}
 .ft-b{background:rgba(37,99,235,0.10);color:var(--blue);}
+.feat-grid-ent{grid-template-columns:repeat(3,1fr)!important;}
 
 /* ═══════════════════════════════════════════
    ENTERPRISE COMPLIANCE
@@ -249,7 +250,8 @@ h2.st{
    COMPARISON
 ═══════════════════════════════════════════ */
 .why-sec{background:#fff;}
-.compare-wrap{overflow:hidden;border:1px solid var(--border);border-radius:16px;margin-top:56px;box-shadow:0 4px 20px rgba(0,0,0,0.06);}
+.compare-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:16px;margin-top:56px;box-shadow:0 4px 20px rgba(0,0,0,0.06);}
+table.ct{min-width:560px;}
 table.ct{width:100%;border-collapse:collapse;font-size:14px;}
 .ct thead tr{background:#f8fafc;}
 .ct th{padding:16px 20px;text-align:left;font-weight:700;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--border);}
@@ -383,6 +385,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
 ═══════════════════════════════════════════ */
 @media(max-width:1200px){
   .feat-grid{grid-template-columns:repeat(2,1fr);}
+  .feat-grid-ent{grid-template-columns:repeat(2,1fr)!important;}
   .ent-grid{grid-template-columns:1fr;gap:40px;}
   .contact-grid{grid-template-columns:1fr;gap:40px;}
 }
@@ -395,19 +398,34 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
   .nav-links{display:none;}
   .stats{grid-template-columns:repeat(2,1fr);}
   .feat-grid{grid-template-columns:1fr;}
+  .feat-grid-ent{grid-template-columns:repeat(2,1fr)!important;}
   table.ct{font-size:12px;}
   table.ct th,table.ct td{padding:10px 12px;}
   .foot-top{grid-template-columns:1fr;}
   .foot-bottom{flex-direction:column;text-align:center;}
   .fg.half{grid-template-columns:1fr;}
   .hero-h1{letter-spacing:-2px;}
+  .pc{padding:32px 24px;}
+  .sec{padding:72px 5%;}
+  .contact-info{gap:16px;}
+}
+@media(max-width:600px){
+  .feat-grid-ent{grid-template-columns:1fr!important;}
+  .price-grid{max-width:100%;}
 }
 @media(max-width:480px){
   .hero-btns{flex-direction:column;align-items:stretch;}
   .btn-hero,.btn-hero-out{justify-content:center;}
   .stat-n{font-size:28px!important;}
-  .hero-h1{letter-spacing:-1.5px;}
+  .hero-h1{letter-spacing:-1.5px;font-size:clamp(36px,10vw,60px)!important;}
+  .hero-sub{font-size:14px;}
   .a0 img{max-height:80px!important;}
+  .fc{padding:24px 20px;}
+  .pc-price{font-size:44px;}
+  .sec{padding:56px 4%;}
+  h2.st{letter-spacing:-1px;font-size:clamp(28px,8vw,44px)!important;}
+  .comp-block-header{flex-wrap:wrap;gap:8px;}
+  .comp-auth-badge{margin-left:0;}
 }
 @media(max-width:768px){
   .logo-svg{display:none;}
@@ -447,7 +465,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <a href="https://commercialtech-frontend-production.up.railway.app" target="_blank" class="btn-login">Login</a>
+    <a href="https://commercialtech-frontend-production.up.railway.app/login" target="_blank" class="btn-login">Login</a>
     <button class="btn-cta" onclick="scrollToForm()">📋 Get a Demo</button>
   </div>
 </nav>
@@ -580,7 +598,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
       <span style="background:var(--blue);color:#fff;font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:3px 12px;border-radius:20px;">$3,500/mo</span>
     </div>
 
-    <div class="feat-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="feat-grid feat-grid-ent">
 
       <div class="fc fade-up" style="border-color:rgba(37,99,235,0.2);background:linear-gradient(160deg,#f0f6ff,#fff);">
         <span class="fc-em">🧾</span>
@@ -801,7 +819,6 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
           <li class="no">Lease Management &amp; Inventory</li>
         </ul>
         <button class="pc-btn o" onclick="scrollToForm()">Get Started →</button>
-        <p class="pc-note">+ $300 one-time setup fee</p>
       </div>
 
       <!-- ENTERPRISE -->
@@ -824,7 +841,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
           <li>Priority Support + On-site Training</li>
         </ul>
         <button class="pc-btn p" onclick="scrollToForm()">Get Started →</button>
-        <p class="pc-note">+ $300 one-time setup fee · Annual plan = 2 months free</p>
+        <p class="pc-note">Annual plan = 2 months free</p>
       </div>
 
     </div>
@@ -880,7 +897,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
                 <input class="fi" id="fn" type="text" placeholder="Your full name">
               </div>
               <div>
-                <label class="fl" for="fp">WhatsApp / Phone *</label>
+                <label class="fl" for="fp">WhatsApp / Telegram / Phone / WeChat *</label>
                 <input class="fi" id="fp" type="tel" placeholder="+855 / +1 / +66...">
               </div>
             </div>
@@ -1095,7 +1112,7 @@ async function submitForm() {
   const msg     = document.getElementById('fm').value.trim();
 
   if (!name)    return toast('Please enter your full name.', true);
-  if (!phone)   return toast('Please enter your WhatsApp or phone number.', true);
+  if (!phone)   return toast('Please enter your WhatsApp, Telegram, Phone, or WeChat.', true);
   if (!company) return toast('Please enter your company or building name.', true);
   if (!selInq)  return toast('Please select what this inquiry is about.', true);
 
