@@ -270,7 +270,10 @@ table.ct{width:100%;border-collapse:collapse;font-size:14px;}
    PRICING
 ═══════════════════════════════════════════ */
 .price-sec{background:#f1f5f9;}
-.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:960px;margin:60px auto 0;}
+.price-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;max-width:1180px;margin:60px auto 0;align-items:start;}
+.pc-price small{font-size:14px;font-weight:600;color:var(--muted);display:block;margin-top:8px;line-height:1.4;}
+.pc-note{font-size:12px;color:var(--muted);margin:-2px 0 14px;font-style:italic;}
+@media(max-width:980px){.price-grid{grid-template-columns:1fr;max-width:540px;}}
 .pc{background:#fff;border:1px solid var(--border);border-radius:22px;padding:42px;position:relative;transition:all .3s;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
 .pc:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(0,0,0,0.12);}
 .pc.feat{border-color:rgba(122,179,46,0.45);background:linear-gradient(160deg,#f0fdf4,#fff);}
@@ -466,7 +469,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
   </ul>
   <div class="nav-right">
     <a href="https://commercialtech-frontend-production.up.railway.app/login" target="_blank" class="btn-login">Login</a>
-    <button class="btn-cta" onclick="scrollToForm()">📋 Contact Us</button>
+    <button class="btn-cta" onclick="scrollToForm()">📋 Get a Demo</button>
   </div>
 </nav>
 
@@ -486,14 +489,14 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
       The complete platform for commercial buildings, office towers, serviced apartments, and shopping centers worldwide. Tasks, HR, Finance, and full government compliance — all in one system.
     </p>
     <div class="hero-btns a3">
-      <button class="btn-hero" onclick="scrollToForm()">📋 Contact Us</button>
+      <button class="btn-hero" onclick="scrollToForm()">📋 Schedule a Demo</button>
       <a href="#features" class="btn-hero-out">✦ Explore Features</a>
     </div>
     <div class="stats a4">
+      <div class="stat"><div class="stat-n" data-target="40" data-suf="+">0</div><div class="stat-l">Buildings Managed</div></div>
+      <div class="stat"><div class="stat-n" data-target="500" data-suf="+">0</div><div class="stat-l">Active Users</div></div>
       <div class="stat"><div class="stat-n">8</div><div class="stat-l">Core Modules</div></div>
       <div class="stat"><div class="stat-n">iOS+</div><div class="stat-l">Android App</div></div>
-      <div class="stat"><div class="stat-n">GDT+</div><div class="stat-l">MLVT Compliant</div></div>
-      <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Cloud-Based</div></div>
     </div>
   </div>
 </section>
@@ -795,56 +798,77 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
     <div class="fade-up tc">
       <div class="tag tag-g">Pricing</div>
       <h2 class="st">Simple &amp; Transparent.</h2>
-      <p class="ss">Two clear plans. No hidden fees. Monthly billing in USD.</p>
+      <p class="ss">Three clear plans. No hidden fees. Monthly billing in USD.</p>
     </div>
     <div class="price-grid fade-up">
 
-      <!-- PRO -->
+      <!-- BASIC -->
       <div class="pc">
-        <div class="pc-name">Pro</div>
+        <div class="pc-name">Basic</div>
         <div class="pc-price"><sup>$</sup>1,500<sub>/month</sub></div>
-        <p class="pc-desc">For commercial buildings that need complete operational control — tasks, HR, customer management, and staff mobile app.</p>
+        <p class="pc-note">Up to 30 users · +$50/user beyond 30</p>
+        <p class="pc-desc">The essentials to run a single building — tasks, visitors, emergency alerts, and the staff mobile app.</p>
         <ul class="pc-list">
           <li>Task Management (Tracker, Kanban, Calendar, Reports)</li>
           <li>Customer Management (Visitors, Complaints, Reports)</li>
           <li>Emergency Alert Management (iOS + Android)</li>
-          <li>HR Management (Attendance, Leave, Payroll, Roster, OT)</li>
-          <li>Sales &amp; Marketing Module</li>
           <li>Meeting Room Management</li>
           <li>Gym Management</li>
-          <li>Mobile App with GPS Check-In/Check-Out</li>
-          <li>Unlimited Users</li>
-          <li class="no">Finance &amp; GDT Compliance Engine</li>
-          <li class="no">NSSF / MLVT Full Compliance</li>
-          <li class="no">Lease Management &amp; Inventory</li>
+          <li>Mobile App (iOS + Android)</li>
+          <li>QR Code for Rooms</li>
+          <li>PDF Monthly Reports</li>
+          <li>Up to 30 users included</li>
+          <li class="no">HR, Payroll &amp; GPS Check-In</li>
+          <li class="no">Sales &amp; Marketing + AI Tools</li>
+          <li class="no">Lease, Inventory &amp; Purchasing</li>
         </ul>
         <button class="pc-btn o" onclick="scrollToForm()">Get Started →</button>
       </div>
 
-      <!-- ENTERPRISE -->
+      <!-- PRO -->
       <div class="pc feat">
         <div class="pc-popular">Most Popular</div>
-        <div class="pc-name">Enterprise</div>
+        <div class="pc-name">Pro</div>
         <div class="pc-price"><sup>$</sup>3,500<sub>/month</sub></div>
-        <p class="pc-desc">Everything in Pro — plus full GDT tax compliance, NSSF payroll automation, and MLVT labour law compliance built directly into your system.</p>
+        <p class="pc-note">Unlimited users — no per-seat charges</p>
+        <p class="pc-desc">The complete operating system for your building — every module, full mobile workforce tools, and unlimited users.</p>
         <ul class="pc-list">
-          <li>Everything in Pro (12 modules)</li>
-          <li>Finance Management + GDT Compliance (VAT, ToS, WHT)</li>
-          <li>NSSF Payroll Automation (Employee 2% + Employer 5.4%)</li>
-          <li>MLVT Labour Law Compliance (LACMS, FWCMS)</li>
-          <li>Seniority Indemnity tracking (UDC contracts)</li>
-          <li>Lease Management &amp; VAT Invoicing</li>
-          <li>Inventory Tracking &amp; Purchasing Department</li>
-          <li>Billing &amp; Invoices (GDT format)</li>
-          <li>Unlimited Users</li>
-          <li>Custom Branding &amp; Building Logo</li>
-          <li>Priority Support + On-site Training</li>
+          <li>Everything in Basic</li>
+          <li>HR Management (Attendance, Leave, Payroll, Roster, OT)</li>
+          <li>Sales &amp; Marketing Module (+ AI Tools)</li>
+          <li>GPS Geofencing Check-In/Check-Out</li>
+          <li>Lease Management &amp; Inventory</li>
+          <li>Billing &amp; Invoices</li>
+          <li>Purchasing Department</li>
+          <li><strong>Unlimited Users</strong></li>
+          <li>Priority Support</li>
+          <li class="no">GDT / NSSF / MLVT Compliance Engine</li>
         </ul>
         <button class="pc-btn p" onclick="scrollToForm()">Get Started →</button>
       </div>
 
+      <!-- ENTERPRISE -->
+      <div class="pc">
+        <div class="pc-name">Enterprise</div>
+        <div class="pc-price">Custom<small>$10,000–$50,000 build<br>+ $5,000/mo maintenance</small></div>
+        <p class="pc-desc">Personalised private software, built for your organisation — including the full Cambodia government compliance engine.</p>
+        <ul class="pc-list">
+          <li>Everything in Pro</li>
+          <li>Finance &amp; Tax Management (GDT format)</li>
+          <li>GDT Compliance — VAT 10%, ToS, WHT + filing reminders</li>
+          <li>NSSF Payroll Automation (Employee 2% + Employer 5.4%)</li>
+          <li>MLVT Labour Law Compliance (LACMS, FWCMS)</li>
+          <li>Seniority Indemnity tracking (UDC contracts)</li>
+          <li>Finance Inbox approval chain + immutable audit trail</li>
+          <li>Multi-building / portfolio dashboard</li>
+          <li>Custom branding &amp; building logo</li>
+          <li>Dedicated account manager + on-site training</li>
+        </ul>
+        <button class="pc-btn o" onclick="scrollToForm()">Contact Us →</button>
+      </div>
+
     </div>
-    <p class="fade-up" style="text-align:center;margin-top:28px;font-size:13px;color:var(--muted);">All prices USD · Monthly billing · Cancel anytime with 30 days notice</p>
+    <p class="fade-up" style="text-align:center;margin-top:28px;font-size:13px;color:var(--muted);">Basic &amp; Pro billed monthly in USD · Enterprise quoted per project · Cancel anytime with 30 days notice</p>
   </div>
 </section>
 
@@ -856,8 +880,8 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
       <!-- Info -->
       <div class="fade-up">
         <div class="tag tag-b">Get In Touch</div>
-        <h2 class="st">Contact Us<br>For More Info.</h2>
-        <p class="ss">Fill in your details and our team will reach out to arrange a live demo or an in-person meeting tailored to your building type and team size.</p>
+        <h2 class="st">Schedule<br>a Demo.</h2>
+        <p class="ss">Fill in your details and we'll reach out to arrange a live walkthrough tailored to your building type and team size.</p>
         <div class="contact-info">
           <a href="https://t.me/commercialtech" target="_blank" class="ci" style="text-decoration:none;">
             <div class="ci-em">💬</div>
@@ -887,8 +911,8 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
       <div class="fade-up">
         <div class="form-box">
           <div id="formWrap">
-            <h3>Get in Touch</h3>
-            <p class="form-sub">Tell us about your building and our team will contact you within 24 hours to arrange your demo or meeting.</p>
+            <h3>Request a Demo</h3>
+            <p class="form-sub">Tell us about your building and we'll be in touch within 24 hours.</p>
 
             <div class="fg half">
               <div>
@@ -945,7 +969,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
               <div class="inq-group" id="inqGroup">
                 <label class="inq" onclick="pickInq(this,'demo')">
                   <input type="radio" name="inq" value="demo">
-                  <div class="inq-label">🟢 I'd like to request a demo of CommercialTech Pro<small>Contact me to arrange a walkthrough or meeting</small></div>
+                  <div class="inq-label">🟢 I want to see a live demo of CommercialTech Pro<small>Show me how it works for my building</small></div>
                 </label>
                 <label class="inq" onclick="pickInq(this,'pricing')">
                   <input type="radio" name="inq" value="pricing">
@@ -963,7 +987,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
               <textarea class="fi" id="fm" placeholder="Tell us more about your building, team size, or what challenges you're trying to solve..."></textarea>
             </div>
 
-            <button class="btn-submit" id="subBtn" onclick="submitForm()">📋 Send My Inquiry</button>
+            <button class="btn-submit" id="subBtn" onclick="submitForm()">📋 Send My Demo Request</button>
             <p class="form-note">We reply within 24 hours · No spam · Your details are kept strictly confidential</p>
           </div>
 
@@ -1019,7 +1043,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
       </div>
       <div class="foot-col">
         <h5>Company</h5>
-        <a href="#contact">Contact Us</a>
+        <a href="#contact">Schedule Demo</a>
         <a href="https://t.me/commercialtech" target="_blank">Telegram</a>
         <a href="https://commercialtech-frontend-production.up.railway.app" target="_blank">App Login</a>
       </div>
@@ -1132,7 +1156,7 @@ async function submitForm() {
   } catch {
     toast('❌ Something went wrong. Please try again or message us on Telegram.', true);
     btn.disabled = false;
-    btn.innerHTML = '📋 Send My Inquiry';
+    btn.innerHTML = '📋 Send My Demo Request';
   }
 }
 
