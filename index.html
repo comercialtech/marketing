@@ -1139,7 +1139,7 @@ async function submitForm() {
   btn.innerHTML = '⏳ Sending your request...';
 
   try {
-    const res = await fetch('/api/contact', {
+    const res = await fetch('https://commercialtech-backend-production.up.railway.app/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, phone, company, buildingType:btype, staffCount:staff, country, inquiryType:selInq, message:msg })
