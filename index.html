@@ -469,7 +469,6 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
   </ul>
   <div class="nav-right">
     <a href="https://commercialtech-frontend-production.up.railway.app/login" target="_blank" class="btn-login">Login</a>
-    <button class="btn-cta" onclick="scrollToForm()">📋 Get a Demo</button>
   </div>
 </nav>
 
@@ -975,10 +974,6 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
                   <input type="radio" name="inq" value="pricing">
                   <div class="inq-label">🟡 I want pricing information for my building<small>Help me choose the right plan</small></div>
                 </label>
-                <label class="inq" onclick="pickInq(this,'reseller')">
-                  <input type="radio" name="inq" value="reseller">
-                  <div class="inq-label">🔵 I'm interested in becoming a reseller or partner<small>I want to offer CommercialTech to my clients</small></div>
-                </label>
               </div>
             </div>
 
@@ -987,7 +982,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
               <textarea class="fi" id="fm" placeholder="Tell us more about your building, team size, or what challenges you're trying to solve..."></textarea>
             </div>
 
-            <button class="btn-submit" id="subBtn" onclick="submitForm()">📋 Send My Demo Request</button>
+            <button class="btn-submit" id="subBtn" onclick="submitForm()">📋 Send My Request</button>
             <p class="form-note">We reply within 24 hours · No spam · Your details are kept strictly confidential</p>
           </div>
 
@@ -1156,7 +1151,7 @@ async function submitForm() {
   } catch {
     toast('❌ Something went wrong. Please try again or message us on Telegram.', true);
     btn.disabled = false;
-    btn.innerHTML = '📋 Send My Demo Request';
+    btn.innerHTML = '📋 Send My Request';
   }
 }
 
