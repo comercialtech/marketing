@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CommercialTech Pro Global — Manage Your Building Smarter & Faster</title>
+<title>CommercialTechPro Global — 4 Products, One Platform</title>
 <meta name="description" content="The complete property management platform for commercial buildings, office towers, serviced apartments and shopping centers. Task management, HR, Finance, GDT & MLVT compliance — all in one system."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -435,6 +435,112 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
   .logo-words{display:none;}
   .logo-png-nav{display:inline-block!important;}
 }
+
+/* ═══════════════════════════════════════════
+   PRODUCT THEME TOKENS  (added for 4-product switcher)
+   --brand / --brand2 drive every accent on the page.
+   CommercialTech = original green (default / unchanged look).
+═══════════════════════════════════════════ */
+:root{
+  --brand:  #7ab32e;   /* default = CommercialTech green */
+  --brand2: #5e8f1c;
+  --brand-rgb: 122,179,46;
+}
+html[data-product="commercialtech"]{ --brand:#7ab32e; --brand2:#5e8f1c; --brand-rgb:122,179,46; }
+html[data-product="constructiontech"]{ --brand:#f59e0b; --brand2:#d97706; --brand-rgb:245,158,11; }
+html[data-product="hpms"]{ --brand:#8b5cf6; --brand2:#7c3aed; --brand-rgb:139,92,246; }
+html[data-product="edunex"]{ --brand:#1B4F8A; --brand2:#163F6E; --brand-rgb:27,79,138; --accent:#00B4D8; }
+
+/* Smooth theme transition on accented elements */
+.btn-cta,.btn-hero,.btn-submit,.pc-btn.p,.stat-n,.hero-h1 .g,
+.logo-name span,.badge-dot{ transition:background .35s,color .35s,box-shadow .35s; }
+
+/* Re-point the green-specific accents to the brand variable so they re-theme.
+   (Original green hardcodes are overridden here — structure untouched.) */
+.btn-cta{ background:var(--brand)!important; box-shadow:0 4px 16px rgba(var(--brand-rgb),0.25)!important; }
+.btn-cta:hover{ background:var(--brand2)!important; box-shadow:0 6px 22px rgba(var(--brand-rgb),0.35)!important; }
+.btn-hero{ background:var(--brand)!important; box-shadow:0 8px 28px rgba(var(--brand-rgb),0.28)!important; }
+.btn-hero:hover{ background:var(--brand2)!important; box-shadow:0 14px 40px rgba(var(--brand-rgb),0.38)!important; }
+.hero-h1 .g{ color:var(--brand)!important; }
+.stat-n{ color:var(--brand)!important; }
+.logo-name span{ color:var(--brand)!important; }
+.tag-g{ background:rgba(var(--brand-rgb),0.1)!important; border-color:rgba(var(--brand-rgb),0.22)!important; color:var(--brand2)!important; }
+.fc:hover{ border-color:rgba(var(--brand-rgb),0.35)!important; }
+.fc::before{ background:linear-gradient(90deg,transparent,var(--brand),transparent)!important; }
+.pc.feat{ border-color:rgba(var(--brand-rgb),0.45)!important; }
+.pc-popular{ background:var(--brand)!important; }
+.pc-btn.p{ background:var(--brand)!important; box-shadow:0 6px 22px rgba(var(--brand-rgb),0.25)!important; }
+.pc-btn.p:hover{ background:var(--brand2)!important; }
+.pc-list li::before{ color:var(--brand)!important; }
+.pro-item{ border-left-color:var(--brand)!important; }
+.pro-list-title .badge{ background:var(--brand)!important; }
+.comp-point::before{ color:var(--brand)!important; }
+.btn-submit{ background:var(--brand)!important; }
+.btn-submit:hover{ background:var(--brand2)!important; box-shadow:0 10px 30px rgba(var(--brand-rgb),0.32)!important; }
+.fi:focus{ border-color:var(--brand)!important; }
+.inq:hover,.inq.sel{ border-color:rgba(var(--brand-rgb),0.5)!important; }
+.inq input[type="radio"]{ accent-color:var(--brand)!important; }
+.ci{ border-left-color:var(--brand)!important; }
+.ci-tx a{ color:var(--brand)!important; }
+.foot-col a:hover,.foot-links a:hover{ color:var(--brand)!important; }
+.toast{ background:var(--brand)!important; }
+.toast.err{ background:var(--red)!important; }
+.btn-hero-out{ transition:all .25s; }
+
+/* EduNex teal secondary accent */
+html[data-product="edunex"] .hero-badge{ background:rgba(0,180,216,0.10); border-color:rgba(0,180,216,0.30); color:#0094b3; }
+html[data-product="edunex"] .badge-dot{ background:#00B4D8; }
+html[data-product="edunex"] .fc-tag.ft-teal{ background:rgba(0,180,216,0.14); color:#0094b3; }
+
+/* ═══════════════════════════════════════════
+   PRODUCT SWITCHER BAR
+═══════════════════════════════════════════ */
+.switcher{
+  position:fixed; top:68px; left:0; right:0; z-index:850;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:9px 5%; flex-wrap:wrap;
+  background:rgba(255,255,255,0.92); backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  transition:background .35s;
+}
+.switcher-label{
+  font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase;
+  color:var(--dim); margin-right:6px;
+}
+.sw-btn{
+  display:inline-flex; align-items:center; gap:7px;
+  padding:7px 16px; border-radius:50px; border:1.5px solid var(--border);
+  background:#fff; color:var(--muted);
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:700;
+  cursor:pointer; transition:all .22s; white-space:nowrap;
+}
+.sw-btn:hover{ border-color:var(--brand); color:var(--text2); transform:translateY(-1px); }
+.sw-btn.active{
+  background:var(--brand); color:#fff; border-color:var(--brand);
+  box-shadow:0 4px 16px rgba(var(--brand-rgb),0.30);
+}
+.sw-btn .sw-em{ font-size:15px; line-height:1; }
+
+/* Offset page content for the taller fixed header (nav 68 + switcher) */
+body{ padding-top:54px; }
+.hero{ padding-top:150px!important; }
+
+/* Product views — only active one shows */
+.product-view{ display:none; }
+.product-view.active{ display:block; animation:fadeUp .5s ease both; }
+
+@media(max-width:768px){
+  .switcher{ gap:5px; padding:8px 3%; }
+  .sw-btn{ padding:6px 12px; font-size:12px; }
+  .switcher-label{ display:none; }
+  .hero{ padding-top:184px!important; }
+}
+@media(max-width:480px){
+  .sw-btn .sw-label{ display:none; }
+  .sw-btn{ padding:7px 13px; }
+  .sw-btn .sw-em{ font-size:17px; }
+}
+
 </style>
 </head>
 <body>
@@ -471,8 +577,18 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
     <a href="https://commercialtech-frontend-production.up.railway.app/login" target="_blank" class="btn-login">Login</a>
   </div>
 </nav>
+<!-- ───────────────────────────────── PRODUCT SWITCHER ── -->
+<div class="switcher" id="switcher">
+  <span class="switcher-label">Our Products</span>
+  <button class="sw-btn active" data-product="commercialtech" onclick="switchProduct('commercialtech')"><span class="sw-em">🏢</span><span class="sw-label">CommercialTech</span></button>
+  <button class="sw-btn" data-product="constructiontech" onclick="switchProduct('constructiontech')"><span class="sw-em">🏗️</span><span class="sw-label">ConstructionTech</span></button>
+  <button class="sw-btn" data-product="hpms" onclick="switchProduct('hpms')"><span class="sw-em">🏨</span><span class="sw-label">HPMS</span></button>
+  <button class="sw-btn" data-product="edunex" onclick="switchProduct('edunex')"><span class="sw-em">🎓</span><span class="sw-label">EduNex</span></button>
+</div>
+
 
 <!-- ───────────────────────────────── HERO ── -->
+<div class="product-view active" data-view="commercialtech">
 <section class="hero">
   <div class="hero-grid"></div>
   <div class="hero-inner">
@@ -871,6 +987,370 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
   </div>
 </section>
 
+</div><!-- /commercialtech view -->
+
+<!-- ═══════════════ CONSTRUCTIONTECH VIEW ═══════════════
+     ⚠ DRAFT COPY — placeholder content. Replace features/pricing with
+        real ConstructionTech Pro details before going live.
+═══════════════════════════════════════════════════════ -->
+<div class="product-view" data-view="constructiontech">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-badge a0"><span class="badge-dot"></span> Construction Project Management</div>
+      <h1 class="hero-h1 a1">
+        Build On Time.<br>
+        <span class="g">On Budget.</span>
+      </h1>
+      <p class="hero-sub a2">
+        <!-- ⚠ DRAFT -->
+        The complete platform for construction firms — projects, sites, crews, materials, and compliance in one system. Track every task from groundbreaking to handover.
+      </p>
+      <div class="hero-btns a3">
+        <button class="btn-hero" onclick="scrollToForm()">🏗️ Schedule a Demo</button>
+        <a href="#features" class="btn-hero-out">✦ Explore Features</a>
+      </div>
+      <div class="stats a4">
+        <div class="stat"><div class="stat-n" data-target="8" data-suf="">0</div><div class="stat-l">Core Modules</div></div>
+        <div class="stat"><div class="stat-n">GPS</div><div class="stat-l">Site Check-In</div></div>
+        <div class="stat"><div class="stat-n">iOS+</div><div class="stat-l">Android Apps</div></div>
+        <div class="stat"><div class="stat-n">24/7</div><div class="stat-l">Cloud Uptime</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="sec feat-sec">
+    <div class="inner">
+      <div class="fade-up tc">
+        <div class="tag tag-g">Everything You Need</div>
+        <h2 class="st">One Platform,<br>Every Site.</h2>
+        <p class="ss"><!-- ⚠ DRAFT -->Built for construction project managers. Everything your team needs across every active site — no extra software, no surprises.</p>
+      </div>
+
+      <div class="feat-grid" style="margin-top:60px;">
+        <div class="fc fade-up"><span class="fc-em">🏗️</span><div class="fc-title">Project Management</div><p class="fc-desc">Gantt schedules, milestones, phases, and dependencies. Track every project from tender to handover with full accountability. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">📋</span><div class="fc-title">Task &amp; Punch Lists</div><p class="fc-desc">Site task tracker, snag/punch lists, daily logs, and progress photos. Assign and close issues with a full audit trail. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">👷</span><div class="fc-title">Workforce &amp; Crews</div><p class="fc-desc">Crew rostering, subcontractor management, attendance, and GPS site check-in within the site geofence. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">📦</span><div class="fc-title">Materials &amp; Inventory</div><p class="fc-desc">Material requests, stock levels, deliveries, and wastage tracking. Low-stock alerts and procurement approval chain. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">🛒</span><div class="fc-title">Procurement &amp; RFQ</div><p class="fc-desc">Purchase orders, vendor RFQs, and supplier management with a full approval workflow built in. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">🦺</span><div class="fc-title">Safety &amp; Compliance</div><p class="fc-desc">Incident reporting, toolbox talks, permits-to-work, and safety inspections — logged and reportable. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">📱</span><div class="fc-title">Android &amp; iOS App</div><p class="fc-desc">Field crews log progress, hours, and incidents from any phone. Works on-site with sync when back online. <em>(draft)</em></p><span class="fc-tag ft-g">GPS Geofencing</span></div>
+        <div class="fc fade-up"><span class="fc-em">📄</span><div class="fc-title">Reports &amp; BOQ</div><p class="fc-desc">Daily progress reports, bill-of-quantities tracking, and professionally formatted PDF exports for clients. <em>(draft)</em></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="sec price-sec">
+    <div class="inner">
+      <div class="fade-up tc">
+        <div class="tag tag-g">Pricing</div>
+        <h2 class="st">Simple &amp; Transparent.</h2>
+        <p class="ss"><!-- ⚠ DRAFT pricing -->Placeholder plans — confirm real pricing. Monthly billing in USD.</p>
+      </div>
+      <div class="price-grid fade-up">
+        <div class="pc">
+          <div class="pc-name">Starter</div>
+          <div class="pc-price"><sup>$</sup>—<sub>/month</sub></div>
+          <p class="pc-note">⚠ Draft — set price</p>
+          <p class="pc-desc">Essentials for a single active site — projects, tasks, and the field mobile app.</p>
+          <ul class="pc-list"><li>Project Management</li><li>Task &amp; Punch Lists</li><li>Workforce &amp; GPS Check-In</li><li>Mobile App (iOS + Android)</li><li class="no">Procurement &amp; RFQ</li><li class="no">Safety &amp; Compliance suite</li></ul>
+          <button class="pc-btn o" onclick="scrollToForm()">Get Started →</button>
+        </div>
+        <div class="pc feat">
+          <div class="pc-popular">Most Popular</div>
+          <div class="pc-name">Pro</div>
+          <div class="pc-price"><sup>$</sup>—<sub>/month</sub></div>
+          <p class="pc-note">⚠ Draft — set price</p>
+          <p class="pc-desc">The complete system for multi-site contractors — every module, unlimited users.</p>
+          <ul class="pc-list"><li>Everything in Starter</li><li>Materials &amp; Inventory</li><li>Procurement &amp; RFQ</li><li>Safety &amp; Compliance</li><li>Reports &amp; BOQ</li><li><strong>Unlimited Users</strong></li></ul>
+          <button class="pc-btn p" onclick="scrollToForm()">Get Started →</button>
+        </div>
+        <div class="pc">
+          <div class="pc-name">Enterprise</div>
+          <div class="pc-price">Custom</div>
+          <p class="pc-desc">Personalised build for large construction groups — including local tax &amp; labour compliance.</p>
+          <ul class="pc-list"><li>Everything in Pro</li><li>Finance &amp; Tax (GDT format)</li><li>Multi-project portfolio dashboard</li><li>Custom branding</li><li>Dedicated account manager</li></ul>
+          <button class="pc-btn o" onclick="scrollToForm()">Contact Us →</button>
+        </div>
+      </div>
+      <p class="fade-up" style="text-align:center;margin-top:28px;font-size:13px;color:var(--muted);">⚠ Draft pricing — confirm before launch · Billed monthly in USD</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══════════════ HPMS VIEW ═══════════════
+     ⚠ DRAFT COPY — placeholder content. Replace features/pricing with
+        real HPMS (Hotel & Property Management) details before going live.
+     Note: brief specifies HPMS + purple theme.
+═══════════════════════════════════════════════════════ -->
+<div class="product-view" data-view="hpms">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-badge a0"><span class="badge-dot"></span> Hotel &amp; Property Management</div>
+      <h1 class="hero-h1 a1">
+        Run Your Property.<br>
+        <span class="g">Effortlessly.</span>
+      </h1>
+      <p class="hero-sub a2">
+        <!-- ⚠ DRAFT -->
+        The all-in-one platform for hotels, resorts, and serviced apartments — front desk, reservations, housekeeping, and finance in one system.
+      </p>
+      <div class="hero-btns a3">
+        <button class="btn-hero" onclick="scrollToForm()">🏨 Schedule a Demo</button>
+        <a href="#features" class="btn-hero-out">✦ Explore Features</a>
+      </div>
+      <div class="stats a4">
+        <div class="stat"><div class="stat-n" data-target="8" data-suf="">0</div><div class="stat-l">Core Modules</div></div>
+        <div class="stat"><div class="stat-n">PMS</div><div class="stat-l">Front Desk</div></div>
+        <div class="stat"><div class="stat-n">iOS+</div><div class="stat-l">Android Apps</div></div>
+        <div class="stat"><div class="stat-n">24/7</div><div class="stat-l">Cloud Uptime</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="sec feat-sec">
+    <div class="inner">
+      <div class="fade-up tc">
+        <div class="tag tag-g">Everything You Need</div>
+        <h2 class="st">One Platform,<br>Every Guest.</h2>
+        <p class="ss"><!-- ⚠ DRAFT -->Built for property operators. Everything your team needs — front of house to back office — with no extra software.</p>
+      </div>
+
+      <div class="feat-grid" style="margin-top:60px;">
+        <div class="fc fade-up"><span class="fc-em">🛎️</span><div class="fc-title">Front Desk &amp; PMS</div><p class="fc-desc">Check-in/out, room assignment, guest profiles, and folio management. The operational heart of your property. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">📅</span><div class="fc-title">Reservations</div><p class="fc-desc">Booking calendar, availability grid, rate plans, and group bookings. Avoid overbooking with real-time inventory. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">🧹</span><div class="fc-title">Housekeeping</div><p class="fc-desc">Room status, cleaning schedules, turnover tracking, and maintenance requests pushed to staff phones. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">💳</span><div class="fc-title">Billing &amp; Invoices</div><p class="fc-desc">Guest folios, split billing, multi-currency, and tax-compliant invoices with print-ready PDF output. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">💼</span><div class="fc-title">HR &amp; Payroll</div><p class="fc-desc">Staff attendance, rostering, leave, and payroll — built for hospitality shift patterns. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">📦</span><div class="fc-title">Inventory &amp; Stores</div><p class="fc-desc">Track minibar, F&amp;B, and supplies. Low-stock alerts and purchase requests with approval. <em>(draft)</em></p></div>
+        <div class="fc fade-up"><span class="fc-em">📱</span><div class="fc-title">Android &amp; iOS App</div><p class="fc-desc">Staff manage tasks, housekeeping, and alerts from any phone, anywhere on the property. <em>(draft)</em></p><span class="fc-tag ft-g">Mobile</span></div>
+        <div class="fc fade-up"><span class="fc-em">📊</span><div class="fc-title">Reports &amp; Analytics</div><p class="fc-desc">Occupancy, ADR, RevPAR, and department performance — exportable PDF reports for owners. <em>(draft)</em></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="sec price-sec">
+    <div class="inner">
+      <div class="fade-up tc">
+        <div class="tag tag-g">Pricing</div>
+        <h2 class="st">Simple &amp; Transparent.</h2>
+        <p class="ss"><!-- ⚠ DRAFT pricing -->Placeholder plans — confirm real pricing. Monthly billing in USD.</p>
+      </div>
+      <div class="price-grid fade-up">
+        <div class="pc">
+          <div class="pc-name">Starter</div>
+          <div class="pc-price"><sup>$</sup>—<sub>/month</sub></div>
+          <p class="pc-note">⚠ Draft — set price</p>
+          <p class="pc-desc">Essentials for a boutique property — front desk, reservations, and housekeeping.</p>
+          <ul class="pc-list"><li>Front Desk &amp; PMS</li><li>Reservations</li><li>Housekeeping</li><li>Mobile App</li><li class="no">HR &amp; Payroll</li><li class="no">Inventory &amp; Stores</li></ul>
+          <button class="pc-btn o" onclick="scrollToForm()">Get Started →</button>
+        </div>
+        <div class="pc feat">
+          <div class="pc-popular">Most Popular</div>
+          <div class="pc-name">Pro</div>
+          <div class="pc-price"><sup>$</sup>—<sub>/month</sub></div>
+          <p class="pc-note">⚠ Draft — set price</p>
+          <p class="pc-desc">The complete system for hotels and resorts — every module, unlimited users.</p>
+          <ul class="pc-list"><li>Everything in Starter</li><li>Billing &amp; Invoices</li><li>HR &amp; Payroll</li><li>Inventory &amp; Stores</li><li>Reports &amp; Analytics</li><li><strong>Unlimited Users</strong></li></ul>
+          <button class="pc-btn p" onclick="scrollToForm()">Get Started →</button>
+        </div>
+        <div class="pc">
+          <div class="pc-name">Enterprise</div>
+          <div class="pc-price">Custom</div>
+          <p class="pc-desc">Personalised build for hotel groups — including local tax &amp; labour compliance.</p>
+          <ul class="pc-list"><li>Everything in Pro</li><li>Finance &amp; Tax (GDT format)</li><li>Multi-property portfolio dashboard</li><li>Channel manager integration</li><li>Dedicated account manager</li></ul>
+          <button class="pc-btn o" onclick="scrollToForm()">Contact Us →</button>
+        </div>
+      </div>
+      <p class="fade-up" style="text-align:center;margin-top:28px;font-size:13px;color:var(--muted);">⚠ Draft pricing — confirm before launch · Billed monthly in USD</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══════════════ EDUNEX VIEW ═══════════════ -->
+<div class="product-view" data-view="edunex">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-badge a0"><span class="badge-dot"></span> School Management Platform</div>
+      <h1 class="hero-h1 a1">
+        Every School.<br>
+        <span class="g">Connected.</span>
+      </h1>
+      <p class="hero-sub a2">
+        The complete operating system for schools across Cambodia and emerging markets — from nursery to large campuses. Teaching, attendance, students, safety, and parent communication in one trilingual, offline-first platform.
+      </p>
+      <div class="hero-btns a3">
+        <button class="btn-hero" onclick="scrollToForm()">🎓 Book a Demo</button>
+        <a href="#features" class="btn-hero-out">✦ Explore Modules</a>
+      </div>
+      <div class="stats a4">
+        <div class="stat"><div class="stat-n" data-target="5" data-suf="">0</div><div class="stat-l">Core Pillars</div></div>
+        <div class="stat"><div class="stat-n">EN·KH·ZH</div><div class="stat-l">Trilingual</div></div>
+        <div class="stat"><div class="stat-n">Offline</div><div class="stat-l">First Architecture</div></div>
+        <div class="stat"><div class="stat-n">QB</div><div class="stat-l">QuickBooks Ready</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES / PILLARS -->
+  <section class="sec feat-sec">
+    <div class="inner">
+      <div class="fade-up tc">
+        <div class="tag tag-g">Five Pillars</div>
+        <h2 class="st">One Platform,<br>Every Role.</h2>
+        <p class="ss">Built for how schools in Cambodia actually run — two-shift days, after-school tutoring, Messenger-first parents, and limited connectivity. No extra software, no integrations.</p>
+      </div>
+
+      <div class="feat-grid" style="margin-top:60px;">
+
+        <div class="fc fade-up">
+          <span class="fc-em">👩‍🏫</span>
+          <div class="fc-title">Teacher Hub</div>
+          <p class="fc-desc">My Day schedule, gradebook, lesson plans with approval workflow, homework, and direct parent messaging. Everything a teacher touches in one place — works offline and syncs when back online.</p>
+          <span class="fc-tag ft-teal">Offline-First</span>
+        </div>
+
+        <div class="fc fade-up">
+          <span class="fc-em">🏫</span>
+          <div class="fc-title">Building Intelligence</div>
+          <p class="fc-desc">Rooms, facilities, maintenance requests, room bookings, and condition tracking. Know the state of every classroom, lab, and shared space across your campus at a glance.</p>
+        </div>
+
+        <div class="fc fade-up">
+          <span class="fc-em">🎒</span>
+          <div class="fc-title">Student 360</div>
+          <p class="fc-desc">A complete profile per student — enrollment, attendance, grades, health records, documents, awards, and guardians. Two-shift populations handled as separate entities.</p>
+        </div>
+
+        <div class="fc fade-up">
+          <span class="fc-em">🛡️</span>
+          <div class="fc-title">Events &amp; Safety</div>
+          <p class="fc-desc">Front-desk visitor management, gate &amp; arrival logging, nurse and health records, tasks, and announcements. A full safety and operations layer for the whole school.</p>
+        </div>
+
+        <div class="fc fade-up">
+          <span class="fc-em">💬</span>
+          <div class="fc-title">Communication</div>
+          <p class="fc-desc">Reach parents where they actually are — Facebook Messenger and Telegram first, not email. Trilingual announcements, attendance alerts, and report-card releases.</p>
+          <span class="fc-tag ft-teal">Messenger + Telegram</span>
+        </div>
+
+        <div class="fc fade-up">
+          <span class="fc-em">🧾</span>
+          <div class="fc-title">Finance → QuickBooks</div>
+          <p class="fc-desc">Auto-generated voucher journal entries exported straight to QuickBooks — fee collection, payroll, purchases. No competing accounting engine, zero double-entry.</p>
+          <span class="fc-tag ft-g">QB Voucher Remittance</span>
+        </div>
+
+        <div class="fc fade-up">
+          <span class="fc-em">📥</span>
+          <div class="fc-title">Admissions Pipeline</div>
+          <p class="fc-desc">From first enquiry to enrolled — application stages, assessment scheduling, document collection, and source tracking (walk-in, Facebook, referral, school fair).</p>
+        </div>
+
+        <div class="fc fade-up">
+          <span class="fc-em">🖨️</span>
+          <div class="fc-title">Cash Receipt Printing</div>
+          <p class="fc-desc">Bluetooth thermal receipt printing for cash fee collection at the front desk — designed for the realities of Cambodian school payments.</p>
+          <span class="fc-tag ft-g">Hardware Ready</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="sec price-sec">
+    <div class="inner">
+      <div class="fade-up tc">
+        <div class="tag tag-g">Editions</div>
+        <h2 class="st">Priced for Every School.</h2>
+        <p class="ss">From a single kindergarten to a multi-campus chain. Monthly billing in USD.</p>
+      </div>
+      <div class="price-grid fade-up">
+
+        <!-- LITE -->
+        <div class="pc">
+          <div class="pc-name">EduNex Lite</div>
+          <div class="pc-price"><sup>$</sup>300<sub>/month</sub></div>
+          <p class="pc-note">Nursery &amp; kindergarten</p>
+          <p class="pc-desc">The essentials for small early-years schools — attendance, students, and parent communication.</p>
+          <ul class="pc-list">
+            <li>Student 360 (profiles, guardians, documents)</li>
+            <li>Attendance (two-shift aware)</li>
+            <li>Communication (Messenger + Telegram)</li>
+            <li>Announcements (trilingual)</li>
+            <li>Front-desk &amp; visitor log</li>
+            <li>Offline-first mobile use</li>
+            <li class="no">Teacher Hub &amp; Gradebook</li>
+            <li class="no">Finance → QuickBooks vouchers</li>
+            <li class="no">Admissions pipeline</li>
+          </ul>
+          <button class="pc-btn o" onclick="scrollToForm()">Get Started →</button>
+        </div>
+
+        <!-- SCHOOL -->
+        <div class="pc feat">
+          <div class="pc-popular">Most Popular</div>
+          <div class="pc-name">EduNex School</div>
+          <div class="pc-price"><sup>$</sup>550<sub>/month</sub></div>
+          <p class="pc-note">K–12 combinations</p>
+          <p class="pc-desc">The complete platform for primary and secondary schools — every pillar, full teaching tools.</p>
+          <ul class="pc-list">
+            <li>Everything in Lite</li>
+            <li>Teacher Hub (My Day, Gradebook, Lesson Plans)</li>
+            <li>Building Intelligence (facilities, maintenance)</li>
+            <li>Events &amp; Safety (nurse, gate, tasks)</li>
+            <li>Admissions Pipeline</li>
+            <li>Finance → QuickBooks vouchers</li>
+            <li>After-school / tutoring classes</li>
+            <li>Cash receipt printing (Bluetooth)</li>
+            <li class="no">Multi-campus dashboard</li>
+          </ul>
+          <button class="pc-btn p" onclick="scrollToForm()">Get Started →</button>
+        </div>
+
+        <!-- CAMPUS -->
+        <div class="pc">
+          <div class="pc-name">EduNex Campus</div>
+          <div class="pc-price"><sup>$</sup>888<sub>/month</sub></div>
+          <p class="pc-note">Large schools &amp; chains</p>
+          <p class="pc-desc">For large campuses and multi-school groups needing portfolio-wide visibility and control.</p>
+          <ul class="pc-list">
+            <li>Everything in School</li>
+            <li>Multi-campus / chain dashboard</li>
+            <li>Advanced reporting &amp; analytics</li>
+            <li>Custom roles &amp; permissions</li>
+            <li>Priority onboarding &amp; training</li>
+            <li>Dedicated account manager</li>
+            <li>Custom branding per school</li>
+            <li>API &amp; data export</li>
+          </ul>
+          <button class="pc-btn o" onclick="scrollToForm()">Contact Us →</button>
+        </div>
+
+      </div>
+      <p class="fade-up" style="text-align:center;margin-top:28px;font-size:13px;color:var(--muted);">All editions trilingual (English · ខ្មែរ · 中文) · Offline-first · Billed monthly in USD · Cancel anytime</p>
+    </div>
+  </section>
+
+</div>
+
+
 <!-- ───────────────────────────────── CONTACT / DEMO FORM ── -->
 <section class="sec contact-sec" id="contact">
   <div class="inner">
@@ -1040,7 +1520,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
         <h5>Company</h5>
         <a href="#contact">Schedule Demo</a>
         <a href="https://t.me/commercialtech" target="_blank">Telegram</a>
-        <a href="https://commercialtech-frontend-production.up.railway.app" target="_blank">App Login</a>
+        <a href="https://commercialtech-frontend-production.up.railway.app" target="_blank" data-foot-login>App Login</a>
       </div>
       <div class="foot-col">
         <h5>Legal</h5>
@@ -1053,7 +1533,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
       <div class="foot-links">
         <a href="/privacy-policy.html">Privacy Policy</a>
         <a href="https://t.me/commercialtech" target="_blank">Telegram</a>
-        <a href="https://commercialtech-frontend-production.up.railway.app" target="_blank">App Login</a>
+        <a href="https://commercialtech-frontend-production.up.railway.app" target="_blank" data-foot-login>App Login</a>
       </div>
     </div>
   </div>
@@ -1062,6 +1542,61 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
 <div class="toast" id="toast"></div>
 
 <script>
+
+// ── Product switcher ───────────────────────────────────────────────────────
+const PRODUCT_META = {
+  commercialtech:   { name:'CommercialTech', suffix:'Pro', tg:'CommercialTech', login:'https://commercialtech-frontend-production.up.railway.app/login', telegram:'https://t.me/commercialtech' },
+  constructiontech: { name:'ConstructionTech', suffix:'Pro', tg:'ConstructionTech', login:'#', /* TODO: ConstructionTech login URL */ telegram:'https://t.me/commercialtech' },
+  hpms:             { name:'HPMS', suffix:'', tg:'HPMS', login:'#', /* TODO: HPMS login URL */ telegram:'https://t.me/commercialtech' },
+  edunex:           { name:'EduNex', suffix:'', tg:'EduNex', login:'#', /* TODO: EduNex login URL (edunex.io) */ telegram:'https://t.me/commercialtech' },
+};
+
+let currentProduct = 'commercialtech';
+
+function switchProduct(key, skipScroll) {
+  if (!PRODUCT_META[key]) key = 'commercialtech';
+  currentProduct = key;
+  try { localStorage.setItem('ctp_product', key); } catch(e){}
+
+  // Theme
+  document.documentElement.setAttribute('data-product', key);
+
+  // Views
+  document.querySelectorAll('.product-view').forEach(v => {
+    v.classList.toggle('active', v.dataset.view === key);
+  });
+
+  // Switcher buttons
+  document.querySelectorAll('.sw-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.product === key);
+  });
+
+  // Login button URL
+  const meta = PRODUCT_META[key];
+  const loginBtn = document.querySelector('.btn-login');
+  if (loginBtn) loginBtn.href = meta.login;
+
+  // Footer app-login links
+  document.querySelectorAll('[data-foot-login]').forEach(a => { a.href = meta.login; });
+
+  // Re-run reveal so newly shown sections animate + counters fire
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.product-view.active .fade-up').forEach(el => obs.observe(el));
+    document.querySelectorAll('.product-view.active [data-target]').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight) animCount(el);
+    });
+  });
+
+  if (!skipScroll) window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+// Restore last product on load
+(function initProduct(){
+  let saved = 'commercialtech';
+  try { saved = localStorage.getItem('ctp_product') || 'commercialtech'; } catch(e){}
+  switchProduct(saved, true);
+})();
+
 // ── Counter animation ──────────────────────────────────────────────────────
 function animCount(el) {
   if (el._done) return; el._done = true;
@@ -1142,7 +1677,7 @@ async function submitForm() {
     const res = await fetch('https://commercialtech-backend-production.up.railway.app/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, phone, company, buildingType:btype, staffCount:staff, country, inquiryType:selInq, message:msg })
+      body: JSON.stringify({ name, phone, company, buildingType:btype, staffCount:staff, country, inquiryType:selInq, message:msg, product: currentProduct })
     });
     if (!res.ok) throw new Error();
     document.getElementById('formWrap').style.display = 'none';
