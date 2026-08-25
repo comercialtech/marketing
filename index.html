@@ -168,6 +168,8 @@ h2.st{
 ═══════════════════════════════════════════ */
 .feat-sec{background:#f8fafc;}
 .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:60px;}
+.mod-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:16px 28px;margin-top:44px;text-align:left;}
+.mod-col-h{font-size:13px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.04em;margin-bottom:14px;}
 .fc{
   background:#fff;border:1px solid var(--border);
   border-radius:20px;padding:32px 28px;position:relative;overflow:hidden;
@@ -388,6 +390,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
 ═══════════════════════════════════════════ */
 @media(max-width:1200px){
   .feat-grid{grid-template-columns:repeat(2,1fr);}
+  .mod-cols{grid-template-columns:repeat(3,1fr);}
   .feat-grid-ent{grid-template-columns:repeat(2,1fr)!important;}
   .ent-grid{grid-template-columns:1fr;gap:40px;}
   .contact-grid{grid-template-columns:1fr;gap:40px;}
@@ -401,6 +404,7 @@ footer{background:#f1f5f9;border-top:1px solid var(--border);padding:60px 5% 28p
   .nav-links{display:none;}
   .stats{grid-template-columns:repeat(2,1fr);}
   .feat-grid{grid-template-columns:1fr;}
+  .mod-cols{grid-template-columns:repeat(2,1fr);}
   .feat-grid-ent{grid-template-columns:repeat(2,1fr)!important;}
   table.ct{font-size:12px;}
   table.ct th,table.ct td{padding:10px 12px;}
@@ -450,6 +454,7 @@ html[data-product="commercialtech"]{ --brand:#7ab32e; --brand2:#5e8f1c; --brand-
 html[data-product="constructiontech"]{ --brand:#f59e0b; --brand2:#d97706; --brand-rgb:245,158,11; }
 html[data-product="hpms"]{ --brand:#8b5cf6; --brand2:#7c3aed; --brand-rgb:139,92,246; }
 html[data-product="edunex"]{ --brand:#1B4F8A; --brand2:#163F6E; --brand-rgb:27,79,138; --accent:#00B4D8; }
+html[data-product="commercialtechglobal"]{ --brand:#0d9488; --brand2:#0f766e; --brand-rgb:13,148,136; }
 
 /* Smooth theme transition on accented elements */
 .btn-cta,.btn-hero,.btn-submit,.pc-btn.p,.stat-n,.hero-h1 .g,
@@ -583,6 +588,7 @@ body{ padding-top:54px; }
   <button class="sw-btn" data-product="constructiontech" onclick="switchProduct('constructiontech')"><span class="sw-em">🏗️</span><span class="sw-label">ConstructionTech</span></button>
   <button class="sw-btn" data-product="hpms" onclick="switchProduct('hpms')"><span class="sw-em">🏨</span><span class="sw-label">HPMS</span></button>
   <button class="sw-btn" data-product="edunex" onclick="switchProduct('edunex')"><span class="sw-em">🎓</span><span class="sw-label">EduNex</span></button>
+  <button class="sw-btn" data-product="commercialtechglobal" onclick="switchProduct('commercialtechglobal')"><span class="sw-em">🌏</span><span class="sw-label">CommercialTech Global</span></button>
 </div>
 
 
@@ -755,6 +761,69 @@ body{ padding-top:54px; }
         <p class="fc-desc">Purchase order management, delivery tracking, vendor RFQ system, and supplier management. Full procurement workflow with Finance approval chain built in.</p>
       </div>
 
+    </div>
+
+    <div class="fade-up tc" style="margin-top:80px;">
+      <div class="tag tag-g">The Full List</div>
+      <h2 class="st">All 25 Modules,<br>Basic Through Enterprise.</h2>
+      <p class="ss">Every module CommercialTech Pro offers, at a glance — from day-one essentials to full GDT compliance.</p>
+    </div>
+
+    <div class="mod-cols fade-up">
+      <div>
+        <div class="mod-col-h">Operations</div>
+        <ul class="pc-list">
+          <li>Task Management (Kanban &amp; Calendar)</li>
+          <li>GPS Attendance / Clock-In</li>
+          <li>Emergency Alert Management</li>
+          <li>PDF Monthly Reports</li>
+          <li>Notifications &amp; Announcements</li>
+        </ul>
+      </div>
+      <div>
+        <div class="mod-col-h">Front of House</div>
+        <ul class="pc-list">
+          <li>Front Desk</li>
+          <li>Visitor Management</li>
+          <li>Complaints &amp; Telegram Bot</li>
+          <li>Fit-out Management</li>
+          <li>Location Info &amp; GPS Setup</li>
+        </ul>
+      </div>
+      <div>
+        <div class="mod-col-h">Facilities</div>
+        <ul class="pc-list">
+          <li>Meeting Room Management</li>
+          <li>Gym Management</li>
+          <li>Utilities Tracking</li>
+          <li>QR Code for Rooms</li>
+          <li>Lease Management</li>
+        </ul>
+      </div>
+      <div>
+        <div class="mod-col-h">Finance &amp; Procurement</div>
+        <ul class="pc-list">
+          <li>Finance &amp; Tax Management (GDT)</li>
+          <li>Billing &amp; Invoices</li>
+          <li>Budgeting</li>
+          <li>Purchasing Department</li>
+          <li>Inventory Tracking</li>
+        </ul>
+      </div>
+      <div>
+        <div class="mod-col-h">People &amp; Reporting</div>
+        <ul class="pc-list">
+          <li>HR Management (Cambodia GDT)</li>
+          <li>HR Management (International)</li>
+          <li>Payroll &amp; Attendance</li>
+          <li>Sales &amp; Marketing</li>
+          <li>IT Management</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fade-up tc" style="margin-top:50px;">
+      <button class="btn-hero" onclick="scrollToForm()">🏢 Book a Free Demo</button>
     </div>
 
   </div>
@@ -1151,6 +1220,121 @@ body{ padding-top:54px; }
 </div>
 
 
+<!-- ═══════════════ COMMERCIALTECH GLOBAL VIEW ═══════════════ -->
+<div class="product-view" data-view="commercialtechglobal">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-badge a0"><span class="badge-dot"></span> Commercial &amp; Mixed-Use Building Management</div>
+      <h1 class="hero-h1 a1">
+        One Platform.<br>
+        <span class="g">Every Building, Anywhere.</span>
+      </h1>
+      <p class="hero-sub a2">
+        Run your entire commercial or mixed-use building from one system — GPS-verified staff, leasing &amp; contracts, task management, and print-and-submit DCR/PVR reporting, with no internal accounting engine to babysit. Built for operators expanding across new markets.
+      </p>
+      <div class="hero-btns a3">
+        <button class="btn-hero" onclick="scrollToForm()">🌏 Book a Free Demo</button>
+        <a href="#global-features" class="btn-hero-out">✦ See All 25 Modules</a>
+      </div>
+      <div class="stats a4">
+        <div class="stat"><div class="stat-n">25</div><div class="stat-l">Modules, One Platform</div></div>
+        <div class="stat"><div class="stat-n">GPS</div><div class="stat-l">Staff Clock-In</div></div>
+        <div class="stat"><div class="stat-n">iOS+</div><div class="stat-l">Android Apps</div></div>
+        <div class="stat"><div class="stat-n">24/7</div><div class="stat-l">Cloud Uptime</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="sec feat-sec" id="global-features">
+    <div class="inner">
+      <div class="fade-up tc">
+        <div class="tag tag-g">25 Modules. Zero Extra Software.</div>
+        <h2 class="st">One Platform,<br>Every Building.</h2>
+        <p class="ss">From GPS attendance to leasing to task management — everything a commercial building operator needs, ready to configure for your market from day one.</p>
+      </div>
+
+      <div class="feat-grid" style="margin-top:60px;">
+        <div class="fc fade-up"><span class="fc-em">🌏</span><div class="fc-title">Built to Scale Anywhere</div><p class="fc-desc">Configurable currency, language, and property setup — deploy for a single building or an entire portfolio, in any market you operate in.</p></div>
+        <div class="fc fade-up"><span class="fc-em">📄</span><div class="fc-title">DCR &amp; PVR Reporting</div><p class="fc-desc">Daily Collection Reports and Purchase Voucher Requests — printed and submitted for your finance team, with no internal accounting module to maintain.</p></div>
+        <div class="fc fade-up"><span class="fc-em">📍</span><div class="fc-title">GPS Clock-In</div><p class="fc-desc">The same geofenced check-in system as our other products — staff can only clock in when physically on-site.</p><span class="fc-tag ft-g">GPS Geofencing</span></div>
+        <div class="fc fade-up"><span class="fc-em">🏢</span><div class="fc-title">Leasing &amp; Contracts</div><p class="fc-desc">Full tenant and lease contract management — rental rate, management fee, utilities, deposits, and parking — independent of any finance module.</p></div>
+        <div class="fc fade-up"><span class="fc-em">✅</span><div class="fc-title">Task Management</div><p class="fc-desc">Assign, track, and close tasks across housekeeping, engineering, and front-desk teams with a full accountability trail.</p></div>
+        <div class="fc fade-up"><span class="fc-em">📱</span><div class="fc-title">Android &amp; iOS App</div><p class="fc-desc">A dedicated mobile app for housekeeping and staff to receive and complete tasks in real time, from any phone.</p></div>
+        <div class="fc fade-up"><span class="fc-em">🏋️</span><div class="fc-title">Amenities &amp; Facilities</div><p class="fc-desc">Meeting room, gym, and shared facility bookings built directly into the platform.</p></div>
+        <div class="fc fade-up"><span class="fc-em">🛒</span><div class="fc-title">Purchasing, IT &amp; Utilities</div><p class="fc-desc">Purchase requests, IT ticketing, front-desk logs, and utilities tracking — all in one system.</p></div>
+      </div>
+
+      <div class="fade-up tc" style="margin-top:80px;">
+        <div class="tag tag-g">The Full List</div>
+        <h2 class="st">All 25 Modules,<br>Included Standard.</h2>
+        <p class="ss">No add-on tiers, no per-module upsells. Every building on CommercialTech Global gets the full suite.</p>
+      </div>
+
+      <div class="mod-cols fade-up">
+        <div>
+          <div class="mod-col-h">Operations</div>
+          <ul class="pc-list">
+            <li>GPS Attendance / Clock-In</li>
+            <li>DCR (Daily Collection Report)</li>
+            <li>PVR (Purchase Voucher Request)</li>
+            <li>Task Management</li>
+            <li>Android &amp; iOS Mobile App</li>
+          </ul>
+        </div>
+        <div>
+          <div class="mod-col-h">Property</div>
+          <ul class="pc-list">
+            <li>Leasing &amp; Lease Contracts</li>
+            <li>Units &amp; Building Management</li>
+            <li>Front Desk</li>
+            <li>Visitor Management</li>
+            <li>Fit-out Management</li>
+          </ul>
+        </div>
+        <div>
+          <div class="mod-col-h">Facilities</div>
+          <ul class="pc-list">
+            <li>Meeting Room Booking</li>
+            <li>Gym &amp; Amenities</li>
+            <li>Utilities Tracking</li>
+            <li>QR Facility Info</li>
+            <li>Complaints &amp; Service Requests</li>
+          </ul>
+        </div>
+        <div>
+          <div class="mod-col-h">Procurement &amp; Finance Ops</div>
+          <ul class="pc-list">
+            <li>Purchasing / Procurement</li>
+            <li>Purchase Requests &amp; Approvals</li>
+            <li>Billing &amp; Invoicing</li>
+            <li>Budgeting</li>
+            <li>Reports &amp; Analytics</li>
+          </ul>
+        </div>
+        <div>
+          <div class="mod-col-h">People</div>
+          <ul class="pc-list">
+            <li>HR &amp; Payroll</li>
+            <li>Holidays &amp; Leave</li>
+            <li>Sales &amp; Agent Commissions</li>
+            <li>Internal Messaging</li>
+            <li>IT Helpdesk</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="fade-up tc" style="margin-top:50px;">
+        <button class="btn-hero" onclick="scrollToForm()">🌏 Book a Free Demo</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
 <!-- ───────────────────────────────── CONTACT / DEMO FORM ── -->
 <section class="sec contact-sec" id="contact">
   <div class="inner">
@@ -1348,6 +1532,7 @@ const PRODUCT_META = {
   constructiontech: { name:'ConstructionTech', suffix:'Pro', tg:'ConstructionTech', login:'https://constructiontech-frontend-production.up.railway.app/login', telegram:'https://t.me/commercialtech' },
   hpms:             { name:'HPMS', suffix:'', tg:'HPMS', login:'https://hpsm-frontend-production.up.railway.app/login', telegram:'https://t.me/commercialtech' },
   edunex:           { name:'EduNex', suffix:'', tg:'EduNex', login:'https://edunex-web.pages.dev', telegram:'https://t.me/commercialtech' },
+  commercialtechglobal: { name:'CommercialTech', suffix:'Global', tg:'CommercialTechGlobal', login:'https://frontend-production-357c.up.railway.app/login', telegram:'https://t.me/commercialtech' },
 };
 
 let currentProduct = 'commercialtech';
